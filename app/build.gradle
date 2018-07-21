@@ -1,14 +1,22 @@
+/*
+ * Copyright (c) 2018. by Sebastian Witasik
+ * All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
+ */
+
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
     defaultConfig {
-        applicationId "io.github.slupik.savepass"
-        minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+
+        applicationId globalConfiguration["applicationId"]
+        versionCode globalConfiguration["versionCode"]
+        versionName globalConfiguration["versionName"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
     }
     buildTypes {
         release {
@@ -20,9 +28,44 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //Android view
+    implementation "com.android.support:design:$appcompat"
+    implementation "com.android.support:recyclerview-v7:$appcompat"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
+
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
+    implementation "com.jakewharton:butterknife:$butterKnife"
+
+//    Android compatibility stuff
+    implementation("com.android.support:appcompat-v7:$appcompat")
+    implementation "com.android.support:support-v4:$appcompat"
+
+    //Android background
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    /*
+        TESTS
+     */
+    testImplementation "junit:junit:$junit"
+    androidTestImplementation "com.android.support.test:runner:$supportTestRunner"
+    androidTestImplementation "com.android.support.test:rules:$supportTestRunner"
+
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoCore"
+    androidTestImplementation ("com.android.support.test.espresso:espresso-idling-resource:$espressoCore") {
+        exclude module: 'support-annotations'
+    }
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$espressoContrib") {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
 }
