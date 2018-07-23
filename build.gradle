@@ -51,6 +51,8 @@ allprojects {
         retrofitVersion = "2.4.0"
         gsonVersion = "2.8.2"
         parcelerVersion = "1.1.10"
+        roomVersion = "1.1.1"
+        archLifecycleVersion = "1.1.1"
 
         //tests
         junit = "4.12"
