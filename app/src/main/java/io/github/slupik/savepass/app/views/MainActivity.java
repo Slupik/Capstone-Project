@@ -7,9 +7,12 @@ package io.github.slupik.savepass.app.views;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -21,11 +24,15 @@ import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements PassListFragment.OnFragmentInteractionListener,
+        LocalPasswordFragment.OnFragmentInteractionListener, FragmentController {
     private PasswordViewModel mPasswordViewModel;
 
     @BindView(R.id.acceptation_animation)
     LottieAnimationView checkmarkAnimation;
+
+    private LoginAnimationController animationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +41,22 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setupPasswordViewModel();
-        checkmarkAnimation.setSpeed(0.75f);
-        checkmarkAnimation.setScale(1.25f);
+        animationController = new LoginAnimationController(
+                this,
+                findViewById(R.id.logged_in_animation_view),
+                getSupportActionBar());
 
-        if(getSupportActionBar()!=null) {
-            getSupportActionBar().hide();
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startAnimationLoggedIn();
+            }
+        }, 6000);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        checkmarkAnimation.playAnimation();
     }
 
     private void setupPasswordViewModel() {
@@ -56,5 +67,37 @@ public class MainActivity extends AppCompatActivity {
                 //Update something
             }
         });
+    }
+
+    private void startAnimationLoggedIn() {
+        animationController.playAnimation();
+    }
+
+    @Override
+    public void onLoginAttempt(String login, String password) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void hidePasswordFragment(boolean hide) {
+        if(hide) {
+            findViewById(R.id.login_fragment).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.login_fragment).setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void hideListFragment(boolean hide) {
+        if(hide) {
+            findViewById(R.id.pass_list_fragment).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.pass_list_fragment).setVisibility(View.VISIBLE);
+        }
     }
 }

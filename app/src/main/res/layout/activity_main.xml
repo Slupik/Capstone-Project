@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:airbnb="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.views.MainActivity">
+    tools:context=".app.views.MainActivity"
+    android:orientation="vertical">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/acceptation_animation"
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="?attr/colorPrimary"-->
+            <!--android:minHeight="?attr/actionBarSize"-->
+            <!--android:theme="?attr/actionBarTheme"/>-->
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        airbnb:lottie_fileName="AcceptationAnimation.json"
-        airbnb:lottie_autoPlay="false"
-        airbnb:lottie_loop="true"/>
+        android:layout_height="match_parent"
+        android:id="@+id/login_fragment"
+        android:name="io.github.slupik.savepass.app.views.LocalPasswordFragment"/>
 
-</FrameLayout>
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pass_list_fragment"
+        android:name="io.github.slupik.savepass.app.views.PassListFragment"/>
+
+    <FrameLayout
+        android:id="@+id/logged_in_animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/acceptation_animation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            airbnb:lottie_fileName="AcceptationAnimation.json"
+            airbnb:lottie_autoPlay="false"
+            airbnb:lottie_loop="false"/>
+    </FrameLayout>
+
+</LinearLayout>
