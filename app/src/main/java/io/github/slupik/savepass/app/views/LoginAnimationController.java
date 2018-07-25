@@ -25,12 +25,14 @@ class LoginAnimationController {
     LottieAnimationView animation;
 
     private ActionBar actionBar;
-    private FragmentController controller;
+    private FragmentController viewController;
+    private KeyboardController keyboardController;
 
-    LoginAnimationController(FragmentController controller, View root, ActionBar supportActionBar) {
+    LoginAnimationController(FragmentController viewController, KeyboardController keyboardController, View root, ActionBar supportActionBar) {
         ButterKnife.bind(this, root);
         actionBar = supportActionBar;
-        this.controller = controller;
+        this.viewController = viewController;
+        this.keyboardController = keyboardController;
 
         setupAnimation();
     }
@@ -42,6 +44,7 @@ class LoginAnimationController {
 
     void playAnimation(){
         hideOtherViews();
+        keyboardController.hideKeyboard(container);
         animation.playAnimation();
         animation.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
@@ -54,8 +57,8 @@ class LoginAnimationController {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        controller.hidePasswordFragment(true);
-                        controller.hideListFragment(false);
+                        viewController.hidePasswordFragment(true);
+                        viewController.hideListFragment(false);
                         actionBar.show();
                     }
                 }, 300);
@@ -77,8 +80,8 @@ class LoginAnimationController {
         if(actionBar!=null) {
             actionBar.hide();
         }
-        controller.hidePasswordFragment(true);
-        controller.hideListFragment(true);
+        viewController.hidePasswordFragment(true);
+        viewController.hideListFragment(true);
         container.setVisibility(View.VISIBLE);
     }
 }

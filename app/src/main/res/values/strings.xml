@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SavePass</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password_field">Password</string>
+    <string name="enter_main_password">Enter your password:</string>
+    <string name="login">LOG IN</string>
 </resources>

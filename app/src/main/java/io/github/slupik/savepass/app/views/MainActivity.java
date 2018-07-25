@@ -7,12 +7,14 @@ package io.github.slupik.savepass.app.views;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -26,7 +28,7 @@ import io.github.slupik.savepass.data.password.room.EntityPassword;
 
 public class MainActivity extends AppCompatActivity
         implements PassListFragment.OnFragmentInteractionListener,
-        LocalPasswordFragment.OnFragmentInteractionListener, FragmentController {
+        LocalPasswordFragment.OnFragmentInteractionListener, FragmentController, KeyboardController {
     private PasswordViewModel mPasswordViewModel;
 
     @BindView(R.id.acceptation_animation)
@@ -43,20 +45,19 @@ public class MainActivity extends AppCompatActivity
         setupPasswordViewModel();
         animationController = new LoginAnimationController(
                 this,
+                this,
                 findViewById(R.id.logged_in_animation_view),
                 getSupportActionBar());
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startAnimationLoggedIn();
+//                startAnimationLoggedIn();
             }
         }, 6000);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().hide();
+        }
     }
 
     private void setupPasswordViewModel() {
@@ -67,10 +68,6 @@ public class MainActivity extends AppCompatActivity
                 //Update something
             }
         });
-    }
-
-    private void startAnimationLoggedIn() {
-        animationController.playAnimation();
     }
 
     @Override
@@ -99,5 +96,21 @@ public class MainActivity extends AppCompatActivity
         } else {
             findViewById(R.id.pass_list_fragment).setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void showKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    @Override
+    public void hideKeyboard(View view) {
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
 }
