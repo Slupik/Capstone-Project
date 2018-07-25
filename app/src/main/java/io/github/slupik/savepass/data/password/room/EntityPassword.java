@@ -11,6 +11,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "passwords_table")
 public class EntityPassword {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -44,4 +45,91 @@ public class EntityPassword {
     @ColumnInfo(name = "sync_server")
     private boolean isToSyncWithServer;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getWebAddress() {
+        return webAddress;
+    }
+
+    public void setWebAddress(String webAddress) {
+        this.webAddress = webAddress;
+    }
+
+    public String getPasswordName() {
+        return passwordName;
+    }
+
+    public void setPasswordName(String passwordName) {
+        this.passwordName = passwordName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getShortDesc() {
+        return shortDesc;
+    }
+
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
+    }
+
+    public long getRemindTimeInMilis() {
+        return remindTimeInMilis;
+    }
+
+    public void setRemindTimeInMilis(long remindTimeInMilis) {
+        this.remindTimeInMilis = remindTimeInMilis;
+    }
+
+    public long getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(long lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public long getLastRemindTime() {
+        return lastRemindTime;
+    }
+
+    public void setLastRemindTime(long lastRemindTime) {
+        this.lastRemindTime = lastRemindTime;
+    }
+
+    public boolean isToSyncWithServer() {
+        return isToSyncWithServer;
+    }
+
+    public void setToSyncWithServer(boolean toSyncWithServer) {
+        isToSyncWithServer = toSyncWithServer;
+    }
 }
