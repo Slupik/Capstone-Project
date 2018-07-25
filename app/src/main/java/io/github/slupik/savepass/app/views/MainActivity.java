@@ -11,21 +11,41 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
-public class MainPasswordActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private PasswordViewModel mPasswordViewModel;
+
+    @BindView(R.id.acceptation_animation)
+    LottieAnimationView checkmarkAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_password);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         setupPasswordViewModel();
+        checkmarkAnimation.setSpeed(0.75f);
+        checkmarkAnimation.setScale(1.25f);
+
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().hide();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkmarkAnimation.playAnimation();
     }
 
     private void setupPasswordViewModel() {
