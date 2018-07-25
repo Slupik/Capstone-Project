@@ -53,6 +53,7 @@ allprojects {
         parcelerVersion = "1.1.10"
         roomVersion = "1.1.1"
         archLifecycleVersion = "1.1.1"
+        lottieVersion = "2.5.5"
 
         //tests
         junit = "4.12"
