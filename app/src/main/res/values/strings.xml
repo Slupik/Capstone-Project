@@ -8,4 +8,5 @@
     <string name="wrong_main_password_dialog_header">Warning!</string>
     <string name="wrong_main_password_dialog_message">You entered the wrong password.</string>
     <string name="wrong_main_password_dialog_ok">OK</string>
+    <string name="preference_local_password">pref_local_pass</string>
 </resources>

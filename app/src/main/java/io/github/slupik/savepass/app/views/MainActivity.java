@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoginAttempt(String password) {
-        if(Cryptography.isValidMainPassword(password)){
+        if(new Cryptography(this).isValidMainPassword(password)){
             getLoginListener().onLoginSuccess();
             getMyApplication().setAppPassword(password);
             animationController.playAnimation();
