@@ -10,7 +10,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,8 +22,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
+import io.github.slupik.savepass.app.MyApplication;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
+import io.github.slupik.savepass.model.Cryptography;
 
 public class MainActivity extends AppCompatActivity
         implements PassListFragment.OnFragmentInteractionListener,
@@ -49,12 +50,6 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.logged_in_animation_view),
                 getSupportActionBar());
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                startAnimationLoggedIn();
-            }
-        }, 6000);
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
@@ -71,8 +66,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoginAttempt(String login, String password) {
-
+    public void onLoginAttempt(String password) {
+        if(Cryptography.isValidMainPassword(password)){
+            getLoginListener().onLoginSuccess();
+            getMyApplication().setAppPassword(password);
+            animationController.playAnimation();
+        } else {
+            getLoginListener().onLoginFail();
+        }
     }
 
     @Override
@@ -109,8 +110,23 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void hideKeyboard(View view) {
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
+
+    private LoginListener getLoginListener(){
+        return getLoginFragment();
+    }
+
+    private LocalPasswordFragment getLoginFragment(){
+        return ((LocalPasswordFragment) getSupportFragmentManager().findFragmentById(R.id.login_fragment));
+    }
+
+    private PassListFragment getListFragment(){
+        return ((PassListFragment) getSupportFragmentManager().findFragmentById(R.id.pass_list_fragment));
+    }
+
+    private MyApplication getMyApplication(){
+        return ((MyApplication) getApplication());
     }
 }

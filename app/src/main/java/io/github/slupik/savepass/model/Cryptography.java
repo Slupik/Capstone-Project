@@ -6,4 +6,7 @@
 package io.github.slupik.savepass.model;
 
 public class Cryptography {
+    public static boolean isValidMainPassword(String password){
+        return false;
+    }
 }

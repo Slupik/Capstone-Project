@@ -6,12 +6,18 @@
 package io.github.slupik.savepass.app.views;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 
 /**
@@ -22,8 +28,13 @@ import io.github.slupik.savepass.R;
  * create an instance of this fragment.
  */
 public class LocalPasswordFragment extends Fragment implements LoginListener {
-
     private OnFragmentInteractionListener mListener;
+
+    @BindView(R.id.log_in_app)
+    Button btnLogIn;
+
+    @BindView(R.id.app_password)
+    AppCompatEditText tvPassword;
 
     public LocalPasswordFragment() {
         // Required empty public constructor
@@ -35,7 +46,7 @@ public class LocalPasswordFragment extends Fragment implements LoginListener {
      *
      * @return A new instance of fragment PassListFragment.
      */
-    public static LocalPasswordFragment newInstance(String param1, String param2) {
+    public static LocalPasswordFragment newInstance() {
         LocalPasswordFragment fragment = new LocalPasswordFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -45,13 +56,6 @@ public class LocalPasswordFragment extends Fragment implements LoginListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_local_password, container, false);
     }
 
     @Override
@@ -66,19 +70,45 @@ public class LocalPasswordFragment extends Fragment implements LoginListener {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_local_password, container, false);
+        ButterKnife.bind(this, view);
+        btnLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onLoginAttempt(tvPassword.getText().toString());
+            }
+        });
+        return view;
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
     @Override
-    public void onLoginSuccess() {
-
-    }
+    public void onLoginSuccess() {}
 
     @Override
     public void onLoginFail() {
+        showWrongPasswordDialog();
+    }
 
+    private void showWrongPasswordDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle(getString(R.string.wrong_main_password_dialog_header));
+        alertDialog.setMessage(getString(R.string.wrong_main_password_dialog_message));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.wrong_main_password_dialog_ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     /**
@@ -88,6 +118,6 @@ public class LocalPasswordFragment extends Fragment implements LoginListener {
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        void onLoginAttempt(String login, String password);
+        void onLoginAttempt(String password);
     }
 }
