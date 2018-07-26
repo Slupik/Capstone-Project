@@ -7,6 +7,7 @@
         <item name="android:windowBackground">@color/colorBackground</item>
 
         <item name="android:buttonStyle">@style/AppTheme.Button</item>
+        <item name="android:textViewStyle">@style/AppTheme.TextView</item>
 
         <!--Is it necessary?-->
         <item name="colorControlNormal">#c5c5c5</item>
@@ -23,6 +24,10 @@
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
         <item name="android:gravity">center_vertical|center_horizontal</item>
+    </style>
+
+    <style name="AppTheme.TextView" parent="AppTheme">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

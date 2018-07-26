@@ -49,6 +49,10 @@ public class PasswordRepository {
     }
 
     public void generateExample(MyApplication application){
+        insert(getExampleEntity(application));
+    }
+
+    public static EntityPassword getExampleEntity(MyApplication application){
         EntityPassword entity = new EntityPassword();
         entity.setAndEncryptPassword(application.getAppPassword(), "password"+Randomizer.randomStandardString(5));
         entity.setLogin("login"+Randomizer.randomStandardString(5));
@@ -61,6 +65,6 @@ public class PasswordRepository {
         entity.setLastRemindTime(System.currentTimeMillis()-Randomizer.randomInteger(0, 7)*24*60*60*1000);
         entity.setLastUpdate(System.currentTimeMillis()-Randomizer.randomInteger(0, 7)*24*60*60*1000);
 
-        insert(entity);
+        return entity;
     }
 }

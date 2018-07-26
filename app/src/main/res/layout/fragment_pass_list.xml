@@ -5,15 +5,33 @@
   -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:padding="16dp"
              tools:context=".app.views.PassListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="6dp"
+        android:src="@drawable/plus_icon"
+        app:fabSize="normal"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvPassList"
+        tools:listitem="@layout/pass_list_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:paddingBottom="72dp">
+
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

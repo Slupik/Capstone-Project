@@ -6,13 +6,15 @@
 package io.github.slupik.savepass.app.views;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 
 /**
@@ -22,8 +24,11 @@ import io.github.slupik.savepass.R;
  * Use the {@link PassListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PassListFragment extends Fragment {
+public class PassListFragment extends Fragment implements PassListController {
     private OnFragmentInteractionListener mListener;
+
+    @BindView(R.id.rvPassList)
+    RecyclerView passList;
 
     public PassListFragment() {
         // Required empty public constructor
@@ -51,7 +56,9 @@ public class PassListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pass_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_pass_list, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -71,6 +78,11 @@ public class PassListFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void setAdapter(RecyclerView.Adapter<PassListAdapter.ViewHolder> adapter) {
+        passList.setAdapter(adapter);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -78,6 +90,5 @@ public class PassListFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }

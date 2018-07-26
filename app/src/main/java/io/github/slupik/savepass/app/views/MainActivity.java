@@ -8,7 +8,6 @@ package io.github.slupik.savepass.app.views;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,8 +29,11 @@ import io.github.slupik.savepass.model.Cryptography;
 
 public class MainActivity extends AppCompatActivity
         implements PassListFragment.OnFragmentInteractionListener,
-        LocalPasswordFragment.OnFragmentInteractionListener, FragmentController, KeyboardController {
+        LocalPasswordFragment.OnFragmentInteractionListener, FragmentController, KeyboardController,
+        PassListListener {
     private PasswordViewModel mPasswordViewModel;
+    private PassListAdapter mListAdapter;
+    private List<EntityPassword> mPasswords = new ArrayList<>();
 
     @BindView(R.id.acceptation_animation)
     LottieAnimationView checkmarkAnimation;
@@ -53,11 +56,13 @@ public class MainActivity extends AppCompatActivity
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
+        setupAdapter();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void setupAdapter() {
+        mListAdapter = new PassListAdapter(getMyApplication(), this);
+        getListFragment().setAdapter(mListAdapter);
+        loadNewPasswords(mPasswordViewModel.getLivePasswords().getValue());
     }
 
     private void setupPasswordViewModel() {
@@ -65,9 +70,14 @@ public class MainActivity extends AppCompatActivity
         mPasswordViewModel.getLivePasswords().observe(this, new Observer<List<EntityPassword>>() {
             @Override
             public void onChanged(@Nullable final List<EntityPassword> passwords) {
-                //Update something
+                loadNewPasswords(passwords);
             }
         });
+    }
+
+    private void loadNewPasswords(List<EntityPassword> values) {
+        mPasswords = values;
+        mListAdapter.setNewData(mPasswords);
     }
 
     @Override
@@ -89,11 +99,13 @@ public class MainActivity extends AppCompatActivity
         getLoginListener().onLoginSuccess();
         getMyApplication().setAppPassword(password);
         animationController.playAnimation();
+
+//        PasswordRepository.getInstance(getMyApplication()).generateExample(getMyApplication());
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onListFragmentInteraction(EntityPassword item) {
+//TODO start activity for this item
     }
 
     @Override
