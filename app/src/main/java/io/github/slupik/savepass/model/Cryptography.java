@@ -39,4 +39,8 @@ public class Cryptography {
     private static String getHashedString(String string){
         return BCrypt.hashpw(string, BCRYPT_SALT);
     }
+
+    public static String getEncryptedPass(String key, String password) {
+        return password;
+    }
 }

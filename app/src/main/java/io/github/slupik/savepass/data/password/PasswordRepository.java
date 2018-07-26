@@ -10,11 +10,13 @@ import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
+import io.github.slupik.savepass.app.MyApplication;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.data.password.room.PasswordDAO;
 import io.github.slupik.savepass.data.password.room.PasswordRoomDatabase;
+import io.github.slupik.savepass.model.utils.Randomizer;
 
-class PasswordRepository {
+public class PasswordRepository {
     private static PasswordRepository sInstance;
 
     private PasswordDAO mPasswordDAO;
@@ -42,7 +44,23 @@ class PasswordRepository {
         return mLivePasswords;
     }
 
-    public void insert(EntityPassword word) {
-        new InsertAsyncTask(mPasswordDAO).execute(word);
+    public void insert(EntityPassword entity) {
+        new InsertAsyncTask(mPasswordDAO).execute(entity);
+    }
+
+    public void generateExample(MyApplication application){
+        EntityPassword entity = new EntityPassword();
+        entity.setAndEncryptPassword(application.getAppPassword(), "password"+Randomizer.randomStandardString(5));
+        entity.setLogin("login"+Randomizer.randomStandardString(5));
+        entity.setNotes("Notes"+Randomizer.randomStandardString(20));
+        entity.setPasswordName("passName"+Randomizer.randomStandardString(5));
+        entity.setShortDesc("shortDesc"+Randomizer.randomStandardString(10));
+        entity.setWebAddress("https://github.com/");
+        entity.setToSyncWithServer(true);
+        entity.setRemindTimeInMilis(Randomizer.randomInteger(1, 5)*24*60*60*1000);
+        entity.setLastRemindTime(System.currentTimeMillis()-Randomizer.randomInteger(0, 7)*24*60*60*1000);
+        entity.setLastUpdate(System.currentTimeMillis()-Randomizer.randomInteger(0, 7)*24*60*60*1000);
+
+        insert(entity);
     }
 }
