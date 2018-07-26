@@ -6,6 +6,7 @@
 package io.github.slupik.savepass.model;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import io.github.slupik.savepass.data.settings.MainPasswordSettings;
 
@@ -19,10 +20,20 @@ public class Cryptography {
         mContext = context;
     }
 
+    public boolean isMainPasswordSaved(){
+        String realHash = new MainPasswordSettings(mContext).getPasswordAppHash();
+        return !TextUtils.isEmpty(realHash);
+    }
+
     public boolean isValidMainPassword(String password){
         String realHash = new MainPasswordSettings(mContext).getPasswordAppHash();
         String checkingHash = getHashedString(password);
         return realHash.equals(checkingHash);
+    }
+
+    public void setAndEncryptMainPassword(String password) {
+        String hash = getHashedString(password);
+        new MainPasswordSettings(mContext).setPasswordAppHash(hash);
     }
 
     private static String getHashedString(String string){

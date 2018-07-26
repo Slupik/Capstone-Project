@@ -55,6 +55,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     private void setupPasswordViewModel() {
         mPasswordViewModel = ViewModelProviders.of(this).get(PasswordViewModel.class);
         mPasswordViewModel.getLivePasswords().observe(this, new Observer<List<EntityPassword>>() {
@@ -68,12 +73,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoginAttempt(String password) {
         if(new Cryptography(this).isValidMainPassword(password)){
-            getLoginListener().onLoginSuccess();
-            getMyApplication().setAppPassword(password);
-            animationController.playAnimation();
+            onSuccessLogin(password);
         } else {
             getLoginListener().onLoginFail();
         }
+    }
+
+    @Override
+    public void onRegister(String password) {
+        new Cryptography(this).setAndEncryptMainPassword(password);
+        onSuccessLogin(password);
+    }
+
+    private void onSuccessLogin(String password){
+        getLoginListener().onLoginSuccess();
+        getMyApplication().setAppPassword(password);
+        animationController.playAnimation();
     }
 
     @Override

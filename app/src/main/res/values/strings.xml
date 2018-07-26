@@ -9,4 +9,9 @@
     <string name="wrong_main_password_dialog_message">You entered the wrong password.</string>
     <string name="wrong_main_password_dialog_ok">OK</string>
     <string name="preference_local_password">pref_local_pass</string>
+    <string name="password_retype_field">Retype password</string>
+    <string name="main_password_not_same_dialog_header">Warning</string>
+    <string name="main_password_not_same_dialog_message">Passwords are not the same. Please correct them.</string>
+    <string name="main_password_not_same_dialog_ok">OK</string>
+    <string name="register">register</string>
 </resources>

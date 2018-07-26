@@ -8,6 +8,7 @@ package io.github.slupik.savepass.app.views;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
+import io.github.slupik.savepass.model.Cryptography;
 
 /**
  * Activities that contain this fragment must implement the
@@ -29,12 +31,19 @@ import io.github.slupik.savepass.R;
  */
 public class LocalPasswordFragment extends Fragment implements LoginListener {
     private OnFragmentInteractionListener mListener;
+    private boolean register = true;
 
     @BindView(R.id.log_in_app)
     Button btnLogIn;
 
     @BindView(R.id.app_password)
     AppCompatEditText tvPassword;
+
+    @BindView(R.id.app_retype_password)
+    AppCompatEditText tvRetypePassword;
+
+    @BindView(R.id.app_retype_password_container)
+    TextInputLayout tvRetypePasswordContainer;
 
     public LocalPasswordFragment() {
         // Required empty public constructor
@@ -78,10 +87,36 @@ public class LocalPasswordFragment extends Fragment implements LoginListener {
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onLoginAttempt(tvPassword.getText().toString());
+                tryToLogIn();
             }
         });
+        setupRegistration();
         return view;
+    }
+
+    private void setupRegistration() {
+        register = !new Cryptography(getContext()).isMainPasswordSaved();
+        if(register){
+            tvRetypePasswordContainer.setVisibility(View.VISIBLE);
+            btnLogIn.setText(getString(R.string.register));
+        } else {
+            tvRetypePasswordContainer.setVisibility(View.GONE);
+            btnLogIn.setText(getString(R.string.login));
+        }
+    }
+
+    private void tryToLogIn() {
+        String password = tvPassword.getText().toString();
+        if(register) {
+            String retypePassword = tvRetypePassword.getText().toString();
+            if (password.equals(retypePassword)) {
+                mListener.onRegister(password);
+            } else {
+                dialogPasswordsNotTheSame();
+            }
+        } else {
+            mListener.onLoginAttempt(password);
+        }
     }
 
     @Override
@@ -96,6 +131,19 @@ public class LocalPasswordFragment extends Fragment implements LoginListener {
     @Override
     public void onLoginFail() {
         showWrongPasswordDialog();
+    }
+
+    private void dialogPasswordsNotTheSame() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle(getString(R.string.main_password_not_same_dialog_header));
+        alertDialog.setMessage(getString(R.string.main_password_not_same_dialog_message));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.main_password_not_same_dialog_ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     private void showWrongPasswordDialog() {
@@ -119,5 +167,6 @@ public class LocalPasswordFragment extends Fragment implements LoginListener {
      */
     public interface OnFragmentInteractionListener {
         void onLoginAttempt(String password);
+        void onRegister(String password);
     }
 }

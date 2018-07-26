@@ -8,7 +8,7 @@ package io.github.slupik.savepass.model;
 import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 
-public class BCrypt {
+class BCrypt {
     // BCrypt parameters
     private static final int GENSALT_DEFAULT_LOG2_ROUNDS = 10;
     private static final int BCRYPT_SALT_LEN = 16;
