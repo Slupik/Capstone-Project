@@ -6,7 +6,6 @@
 package io.github.slupik.savepass.app.externalapi;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,7 +36,6 @@ public final class FaviconGrabber {
             callback.onError();
             return;
         }
-        Log.d("PICPHOTO", "getDataForUrl URL: "+url);
 
         FaviconGrabberService service = retrofit.create(FaviconGrabberService.class);
         Call<FaviconGrabberData> call = service.getFaviconData(url);
@@ -47,7 +45,6 @@ public final class FaviconGrabber {
                 FaviconGrabberData data = response.body();
                 if(data!=null) {
                     String url = data.getUrlForBiggestIcon();
-                    Log.d("PICPHOTO", "getUrlForBiggestIcon URL: "+url);
                     if(!TextUtils.isEmpty(url)) {
                         callback.onUrlReturn(url);
                     } else {

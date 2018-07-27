@@ -101,12 +101,11 @@ public class PassListAdapter extends RecyclerView.Adapter<PassListAdapter.ViewHo
             FaviconGrabber.getDataForUrl(password.getWebAddress(), new FaviconGrabber.GrabberCallback() {
                 @Override
                 public void onUrlReturn(String url) {
-                    Picasso.with(favicon.getContext()).load(url).into(favicon);
+                    Picasso.with(favicon.getContext()).load(url).fit().into(favicon);
                 }
 
                 @Override
                 public void onError() {
-
                 }
             });
         }
