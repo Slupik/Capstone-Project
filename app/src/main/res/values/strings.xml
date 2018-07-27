@@ -14,4 +14,22 @@
     <string name="main_password_not_same_dialog_message">Passwords are not the same. Please correct them.</string>
     <string name="main_password_not_same_dialog_ok">OK</string>
     <string name="register">register</string>
+    <string name="cancel_adding_pass">Cancel adding new password info.</string>
+    <string name="add_new_pass">Add new password info</string>
+    <string name="page_name">Name of the page</string>
+    <string name="password">Password</string>
+    <string name="web_address">Web address</string>
+    <string name="user_name">User name</string>
+    <string name="short_desc">Short description</string>
+    <string name="notes">Notes</string>
+    <string name="change_pass_after">Remind to change password after</string>
+    <string name="days">days.</string>
+    <string name="days_hint">days</string>
+    <string name="sync_pass_server">Sync password with server</string>
+    <string name="generate_password">Generate password</string>
+    <string name="include_symbols">Include basic symbols</string>
+    <string name="include_uppercase_characters">Include uppercase characters</string>
+    <string name="include_lowercase_characters">Include lowercase characters</string>
+    <string name="include_numbers">Include numbers</string>
+    <string name="password_length">Password length</string>
 </resources>

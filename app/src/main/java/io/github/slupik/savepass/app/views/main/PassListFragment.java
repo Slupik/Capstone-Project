@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.slupik.savepass.R;
 
 /**
@@ -83,6 +84,11 @@ public class PassListFragment extends Fragment implements PassListController {
         passList.setAdapter(adapter);
     }
 
+    @OnClick(R.id.fabAddPass)
+    public void addPassAction(){
+        mListener.addPassAction();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -90,5 +96,6 @@ public class PassListFragment extends Fragment implements PassListController {
      * activity.
      */
     public interface OnFragmentInteractionListener {
+        void addPassAction();
     }
 }

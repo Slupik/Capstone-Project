@@ -8,6 +8,7 @@ package io.github.slupik.savepass.app.views.main;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
+import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.model.cryptography.Cryptography;
@@ -155,5 +157,11 @@ public class MainActivity extends AppCompatActivity
 
     private MyApplication getMyApplication(){
         return ((MyApplication) getApplication());
+    }
+
+    @Override
+    public void addPassAction() {
+        Intent intent = new Intent(this, AddPassActivity.class);
+        startActivity(intent);
     }
 }

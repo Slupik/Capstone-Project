@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. by Sebastian Witasik
+  ~ All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
+  -->
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="?attr/colorPrimary">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_height="?attr/actionBarSize"
+                android:layout_width="match_parent">
+
+                <ImageView
+                    android:id="@+id/ivCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/cancel_adding_pass"
+                    android:src="@android:drawable/ic_delete"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/ivAccept"
+                        android:layout_width="44dp"
+                        android:layout_height="43dp"
+                        android:layout_marginEnd="16dp"
+                        android:contentDescription="@string/add_new_pass"
+                        android:src="@android:drawable/ic_input_add"/>
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/page_name"
+                    android:textColorHint="@android:color/white">
+
+                    <EditText
+                        android:id="@+id/entity_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textShortMessage"
+                        android:textColor="@android:color/white"
+                        tools:ignore="LabelFor"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/web_address"
+                    android:textColorHint="@android:color/white">
+
+                    <EditText
+                        android:id="@+id/entity_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textShortMessage"
+                        android:textColor="@android:color/white"
+                        tools:ignore="LabelFor"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/user_name"
+                    android:textColorHint="@android:color/white">
+
+                    <EditText
+                        android:id="@+id/entity_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/white"
+                        tools:ignore="LabelFor"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/password"
+                    android:textColorHint="@android:color/white"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@android:color/white">
+
+                    <EditText
+                        android:id="@+id/entity_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@android:color/white"
+                        tools:ignore="LabelFor"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimary">
+
+                    <Button
+                        android:id="@+id/generatePassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/generate_password"/>
+
+                    <CheckBox
+                        android:id="@+id/cbIncludeSymbols"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:checked="true"
+                        android:text="@string/include_symbols"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbIncludeNumbers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:checked="true"
+                        android:text="@string/include_numbers"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbIncludeLowerChar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:checked="true"
+                        android:text="@string/include_lowercase_characters"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbIncludeUpperChar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:checked="true"
+                        android:text="@string/include_uppercase_characters"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"/>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/password_length"
+                        android:textColorHint="@android:color/white">
+
+                        <EditText
+                            android:id="@+id/pass_length"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@android:color/white"
+                            android:text="10"
+                            tools:ignore="HardcodedText,LabelFor"/>
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="@string/change_pass_after"/>
+
+                    <EditText
+                        android:id="@+id/editText5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="2"
+                        android:inputType="number"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:text="14"
+                        tools:ignore="HardcodedText,LabelFor"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/days"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="18sp"
+                    android:checked="true"
+                    android:text="@string/sync_pass_server"
+                    android:textColor="@android:color/white"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/short_desc"
+                    android:textColorHint="@android:color/white">
+
+                    <EditText
+                        android:id="@+id/entity_short_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textShortMessage"
+                        android:textColor="@android:color/white"
+                        tools:ignore="LabelFor"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/notes"
+                    android:textColorHint="@android:color/white">
+
+                    <EditText
+                        android:id="@+id/entity_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:textColor="@android:color/white"
+                        tools:ignore="LabelFor"/>
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
