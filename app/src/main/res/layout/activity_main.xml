@@ -6,20 +6,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.views.MainActivity"
+    tools:context=".app.views.main.MainActivity"
     android:orientation="vertical">
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/login_fragment"
-        android:name="io.github.slupik.savepass.app.views.LocalPasswordFragment"/>
+        android:name="io.github.slupik.savepass.app.views.main.LocalPasswordFragment"/>
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pass_list_fragment"
-        android:name="io.github.slupik.savepass.app.views.PassListFragment"/>
+        android:name="io.github.slupik.savepass.app.views.main.PassListFragment"/>
 
     <FrameLayout
         android:id="@+id/logged_in_animation_view"
