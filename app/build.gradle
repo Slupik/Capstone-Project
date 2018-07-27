@@ -24,6 +24,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        normal {
+            applicationId globalConfiguration["applicationId"]
+            dimension "default"
+        }
+        checkSpecificActivity {
+            applicationId globalConfiguration["applicationId"]
+            dimension "default"
+        }
+    }
 }
 
 dependencies {
@@ -39,6 +51,7 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
     implementation "com.android.support:support-v4:$appcompat"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
     implementation "com.jakewharton:butterknife:$butterKnife"
 
