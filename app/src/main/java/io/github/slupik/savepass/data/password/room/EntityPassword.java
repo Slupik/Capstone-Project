@@ -9,7 +9,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import io.github.slupik.savepass.model.Cryptography;
+import io.github.slupik.savepass.model.cryptography.Cryptography;
 
 @Entity(tableName = "passwords_table")
 public class EntityPassword {
@@ -87,9 +87,13 @@ public class EntityPassword {
         this.encryptedPassword = encryptedPassword;
     }
 
-    public void setAndEncryptPassword(String key, String password) {
+    public void setAndEncryptPassword(String key, String password) throws Exception {
         String encrypted = Cryptography.getEncryptedPass(key, password);
         setEncryptedPassword(encrypted);
+    }
+
+    public String getDecryptedPassword(String key) throws Exception {
+        return Cryptography.getDecryptedPass(key, getEncryptedPassword());
     }
 
     public String getNotes() {

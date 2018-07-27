@@ -20,7 +20,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
-import io.github.slupik.savepass.model.Cryptography;
+import io.github.slupik.savepass.model.cryptography.Cryptography;
 
 /**
  * Activities that contain this fragment must implement the

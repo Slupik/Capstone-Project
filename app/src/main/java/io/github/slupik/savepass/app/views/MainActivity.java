@@ -25,7 +25,7 @@ import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
-import io.github.slupik.savepass.model.Cryptography;
+import io.github.slupik.savepass.model.cryptography.Cryptography;
 
 public class MainActivity extends AppCompatActivity
         implements PassListFragment.OnFragmentInteractionListener,

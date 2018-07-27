@@ -54,7 +54,11 @@ public class PasswordRepository {
 
     public static EntityPassword getExampleEntity(MyApplication application){
         EntityPassword entity = new EntityPassword();
-        entity.setAndEncryptPassword(application.getAppPassword(), "password"+Randomizer.randomStandardString(5));
+        try {
+            entity.setAndEncryptPassword(application.getAppPassword(), "password"+Randomizer.randomStandardString(5));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         entity.setLogin("login"+Randomizer.randomStandardString(5));
         entity.setNotes("Notes"+Randomizer.randomStandardString(20));
         entity.setPasswordName("passName"+Randomizer.randomStandardString(5));
