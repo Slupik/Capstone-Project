@@ -10,6 +10,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:padding="16dp"
+             android:paddingBottom="72dp"
              tools:context=".app.views.main.PassListFragment">
 
     <android.support.design.widget.FloatingActionButton
@@ -18,19 +19,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:clickable="true"
-        android:focusable="true"
         android:elevation="6dp"
+        android:focusable="true"
         android:src="@drawable/plus_icon"
         app:fabSize="normal"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvPassList"
-        tools:listitem="@layout/pass_list_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:paddingBottom="72dp">
+        tools:listitem="@layout/pass_list_item"
+        >
 
     </android.support.v7.widget.RecyclerView>
 
