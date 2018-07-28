@@ -33,4 +33,14 @@
     <string name="include_numbers">Include numbers</string>
     <string name="password_length">Password length</string>
     <string name="icon_of_the_password">Icon of the password</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_want_empty_pass">Do you want have empty password field?</string>
+    <string name="dialog_ok">Ok</string>
+    <string name="empty_reminder">You have left empty field with number of days after app will remind you about refresh the password.</string>
+    <string name="too_many_days_in_reminder">You have typed too many days to remind you about refresh the password. Max is 365. Type 0 if you want to disable this function.</string>
+    <string name="unknow_reminder_field_error">There is unknow error with the field with days for the reminder about password refresh. Please change something there.</string>
+    <string name="unknow_error_with_password">Oh no! Unknow error occured when app tried to save password to the database. This should not happen!</string>
+    <string name="dialog_error_empty_name">You can not have empty name field.</string>
+    <string name="dialog_want_empty_address">Do you want have empty web address  field?</string>
 </resources>
