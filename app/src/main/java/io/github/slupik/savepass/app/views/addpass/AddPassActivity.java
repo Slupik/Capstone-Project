@@ -44,6 +44,17 @@ public class AddPassActivity extends AppCompatActivity {
     @BindView(R.id.cbSyncWithServer)
     CheckBox syncWithServer;
 
+    @BindView(R.id.cbIncludeLowerChar)
+    CheckBox includeLowerChar;
+    @BindView(R.id.cbIncludeNumbers)
+    CheckBox includeNumbers;
+    @BindView(R.id.cbIncludeSymbols)
+    CheckBox includeSymbols;
+    @BindView(R.id.cbIncludeUpperChar)
+    CheckBox includeUpperChar;
+    @BindView(R.id.pass_length)
+    EditText passLength;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +64,13 @@ public class AddPassActivity extends AppCompatActivity {
 
     @OnClick(R.id.generatePassword)
     public void generatePassword(){
-        //TODO handle password generation
+        String password = new PasswordGenerator(
+                includeSymbols.isChecked(),
+                includeNumbers.isChecked(),
+                includeLowerChar.isChecked(),
+                includeUpperChar.isChecked()
+        ).generatePassword((int) getLongFromView(passLength));
+        this.password.setText(password);
     }
 
     @OnClick(R.id.btnCancel)
