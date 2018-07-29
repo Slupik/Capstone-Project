@@ -200,10 +200,6 @@ public class AddPassActivity extends AppCompatActivity {
         } else {
             entity = new EntityPassword();
         }
-        entity.setAndEncryptPassword(
-                getLocalPassword(),
-                getTextFromView(password)
-        );
         entity.setWebAddress(getTextFromView(address));
         entity.setShortDesc(getTextFromView(shortDesc));
         entity.setPasswordName(getTextFromView(name));
@@ -213,8 +209,17 @@ public class AddPassActivity extends AppCompatActivity {
         entity.setToSyncWithServer(syncWithServer.isChecked());
         entity.setRemindTimeInMilis(getLongFromView(remindTime)*24*60*60*1000);
 
-        entity.setLastUpdate(-1);
-        entity.setLastRemindTime(-1);
+        entity.setLastUpdate(System.currentTimeMillis());
+        if(!mEditMode) {
+            entity.setLastRemindTime(-1);
+        } else if(!getTextFromView(password).equals(entity.getDecryptedPassword(getLocalPassword()))) {
+            entity.setLastRemindTime(System.currentTimeMillis());
+        }
+
+        entity.setAndEncryptPassword(
+                getLocalPassword(),
+                getTextFromView(password)
+        );
         return entity;
     }
 
