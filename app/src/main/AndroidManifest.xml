@@ -21,7 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".app.views.addpass.AddPassActivity"
+        <activity
+            android:name=".app.views.addpass.AddPassActivity"
+            android:theme="@style/AppTheme.NoAppBar">
+        </activity>
+        <activity android:name=".app.views.viewpass.ShowPassActivity"
                   android:theme="@style/AppTheme.NoAppBar">
         </activity>
     </application>

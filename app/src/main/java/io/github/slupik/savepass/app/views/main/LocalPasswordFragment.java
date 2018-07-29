@@ -101,7 +101,7 @@ public class LocalPasswordFragment extends Fragment implements LoginListener {
             btnLogIn.setText(getString(R.string.register));
         } else {
             tvRetypePasswordContainer.setVisibility(View.GONE);
-            btnLogIn.setText(getString(R.string.login));
+            btnLogIn.setText(getString(R.string.log_in));
         }
     }
 

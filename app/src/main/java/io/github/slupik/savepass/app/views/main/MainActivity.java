@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
 import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
+import io.github.slupik.savepass.app.views.viewpass.ShowPassActivity;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.model.cryptography.Cryptography;
@@ -107,7 +109,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(EntityPassword item) {
-//TODO start activity for this item
+        Intent newActivity = new Intent(getApplicationContext(), ShowPassActivity.class);
+        newActivity.putExtra(ShowPassActivity.ARG_DATA, new Gson().toJson(item));
+        startActivity(newActivity);
     }
 
     @Override
