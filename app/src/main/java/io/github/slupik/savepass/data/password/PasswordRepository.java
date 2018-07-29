@@ -71,4 +71,12 @@ public class PasswordRepository {
 
         return entity;
     }
+
+    public void delete(EntityPassword... entity) {
+        new DeleteAsyncTask(mPasswordDAO).execute(entity);
+    }
+
+    public void update(EntityPassword... entity) {
+        new UpdateAsyncTask(mPasswordDAO).execute(entity);
+    }
 }

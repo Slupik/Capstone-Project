@@ -3,6 +3,7 @@ package io.github.slupik.savepass.app.views.viewpass;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +21,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
+import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
 public class ShowPassActivity extends AppCompatActivity {
     public static final String ARG_DATA = "data";
+    private static final int REQUEST_EDIT_PASSWORD_ENTITY = 0;
 
     @BindView(R.id.app_bar)
     Toolbar appBar;
@@ -50,6 +53,8 @@ public class ShowPassActivity extends AppCompatActivity {
     @BindView(R.id.note)
     TextView note;
 
+    private EntityPassword mEntity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +76,9 @@ public class ShowPassActivity extends AppCompatActivity {
         btnEditPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO add edit option
+                Intent editAct = new Intent(getApplicationContext(), AddPassActivity.class);
+                editAct.putExtra(AddPassActivity.ARG_DATA, new Gson().toJson(mEntity));
+                startActivityForResult(editAct, REQUEST_EDIT_PASSWORD_ENTITY);
             }
         });
     }
@@ -104,8 +111,8 @@ public class ShowPassActivity extends AppCompatActivity {
 
     private void loadFromBundle(){
         String data = getIntent().getStringExtra(ARG_DATA);
-        EntityPassword entity = new Gson().fromJson(data, EntityPassword.class);
-        loadData(entity);
+        mEntity = new Gson().fromJson(data, EntityPassword.class);
+        loadData(mEntity);
     }
 
     public void loadData(EntityPassword entity) {
@@ -146,6 +153,21 @@ public class ShowPassActivity extends AppCompatActivity {
         } else {
             field.setText(text);
             container.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (REQUEST_EDIT_PASSWORD_ENTITY == requestCode) {
+            if (resultCode == RESULT_OK && data!=null) {
+                if(data.getIntExtra(AddPassActivity.ARG_RESULT_STATUS, -1) == AddPassActivity.RESULT_STATUS_DELETE) {
+                    finish();
+                }
+                if(data.getIntExtra(AddPassActivity.ARG_RESULT_STATUS, -1) == AddPassActivity.RESULT_STATUS_ADD) {
+                    String entData = data.getStringExtra(AddPassActivity.ARG_DATA);
+                    loadData(new Gson().fromJson(entData, EntityPassword.class));
+                }
+            }
         }
     }
 

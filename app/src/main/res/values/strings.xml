@@ -54,4 +54,8 @@
     <string name="copied_successfully">Copied successfully.</string>
     <string name="error_while_copying">An unknown error occurred while copying.</string>
     <string name="edit_pass_info">Edit password information</string>
+    <string name="cancel_adding_new_password">Cancel adding new password</string>
+    <string name="add_new_password">Add new password</string>
+    <string name="delete_password_forever">Delete the password forever</string>
+    <string name="save_password_changes">Save changes in the password</string>
 </resources>

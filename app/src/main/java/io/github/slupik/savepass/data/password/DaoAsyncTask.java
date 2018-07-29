@@ -5,19 +5,28 @@
 
 package io.github.slupik.savepass.data.password;
 
+import android.os.AsyncTask;
+
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.data.password.room.PasswordDAO;
 
-class InsertAsyncTask extends DaoAsyncTask {
+abstract class DaoAsyncTask extends AsyncTask<EntityPassword, Void, Void> {
 
-    InsertAsyncTask(PasswordDAO dao) {
-        super(dao);
+    private PasswordDAO mAsyncTaskDAO;
+
+    DaoAsyncTask(PasswordDAO dao) {
+        mAsyncTaskDAO = dao;
     }
 
     @Override
-    protected void doBackgroundStuff(EntityPassword[] params) {
-        for(EntityPassword entity:params) {
-            getDao().insert(entity);
-        }
+    protected Void doInBackground(final EntityPassword... params) {
+        doBackgroundStuff(params);
+        return null;
+    }
+
+    protected abstract void doBackgroundStuff(EntityPassword[] params);
+
+    protected PasswordDAO getDao(){
+        return mAsyncTaskDAO;
     }
 }

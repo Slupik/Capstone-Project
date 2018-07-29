@@ -8,16 +8,14 @@ package io.github.slupik.savepass.data.password;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.data.password.room.PasswordDAO;
 
-class InsertAsyncTask extends DaoAsyncTask {
+class DeleteAsyncTask extends DaoAsyncTask {
 
-    InsertAsyncTask(PasswordDAO dao) {
+    DeleteAsyncTask(PasswordDAO dao) {
         super(dao);
     }
 
     @Override
     protected void doBackgroundStuff(EntityPassword[] params) {
-        for(EntityPassword entity:params) {
-            getDao().insert(entity);
-        }
+        getDao().deletePasswords(params);
     }
 }

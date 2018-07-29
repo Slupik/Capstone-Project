@@ -29,8 +29,20 @@
                     android:id="@+id/btnCancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@android:drawable/ic_delete"/>
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_cancel_24px"
+                    android:contentDescription="@string/cancel_adding_new_password"/>
+
+                <ImageButton
+                    android:id="@+id/btn_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_marginStart="32dp"
+                    app:srcCompat="@drawable/ic_delete_24px"
+                    android:contentDescription="@string/delete_password_forever"
+                    android:visibility="gone"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -42,8 +54,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:background="@android:color/transparent"
-                        app:srcCompat="@android:drawable/ic_input_add"/>
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        app:srcCompat="@drawable/ic_add_24px"
+                        android:contentDescription="@string/add_new_password"/>
+
+                    <ImageButton
+                        android:id="@+id/btn_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        app:srcCompat="@drawable/ic_accept_24px"
+                        android:contentDescription="@string/save_password_changes"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
