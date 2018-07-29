@@ -97,8 +97,8 @@ public class AddPassActivity extends AppCompatActivity {
         try {
             EntityPassword entity = new EntityPassword();
             entity.setAndEncryptPassword(
-                    getTextFromView(password),
-                    getLocalPassword()
+                    getLocalPassword(),
+                    getTextFromView(password)
             );
             entity.setWebAddress(getTextFromView(address));
             entity.setShortDesc(getTextFromView(shortDesc));
