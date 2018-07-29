@@ -97,6 +97,7 @@ public class PassListAdapter extends RecyclerView.Adapter<PassListAdapter.ViewHo
 
             login.setText(password.getLogin());
             header.setText(password.getPasswordName());
+            favicon.setImageDrawable(null);
 
             FaviconGrabber.getDataForUrl(password.getWebAddress(), new FaviconGrabber.GrabberCallback() {
                 @Override
