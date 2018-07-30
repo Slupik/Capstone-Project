@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. by Sebastian Witasik
+  ~ All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
+  -->
+
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/open_settings"
+          android:icon="@drawable/ic_settings_24px"
+          android:title="@string/settings"
+        app:showAsAction="ifRoom"/>
+</menu>

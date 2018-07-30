@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright (c) 2018. by Sebastian Witasik
+  ~ All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
+  -->
+
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="io.github.slupik.savepass.app.views.serttings.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/pref_header_general"/>
+
+    <header
+        android:fragment="io.github.slupik.savepass.app.views.serttings.SettingsActivity$NotificationPreferenceFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/pref_header_notifications"/>
+
+    <header
+        android:fragment="io.github.slupik.savepass.app.views.serttings.SettingsActivity$DataSyncPreferenceFragment"
+        android:icon="@drawable/ic_sync_black_24dp"
+        android:title="@string/pref_header_data_sync"/>
+
+</preference-headers>

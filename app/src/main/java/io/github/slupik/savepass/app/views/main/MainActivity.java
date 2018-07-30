@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -26,6 +29,7 @@ import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
 import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
+import io.github.slupik.savepass.app.views.serttings.SettingsActivity;
 import io.github.slupik.savepass.app.views.viewpass.ShowPassActivity;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
@@ -167,5 +171,23 @@ public class MainActivity extends AppCompatActivity
     public void addPassAction() {
         Intent intent = new Intent(this, AddPassActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.pass_list_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.open_settings:
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

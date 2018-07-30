@@ -7,7 +7,7 @@
 
     <application>
         <activity
-            android:name=".app.views.viewpass.ShowPassActivity">
+            android:name=".app.views.serttings.SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

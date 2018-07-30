@@ -25,8 +25,14 @@
             android:name=".app.views.addpass.AddPassActivity"
             android:theme="@style/AppTheme.NoAppBar">
         </activity>
-        <activity android:name=".app.views.viewpass.ShowPassActivity"
-                  android:theme="@style/AppTheme.NoAppBar">
+        <activity
+            android:name=".app.views.viewpass.ShowPassActivity"
+            android:theme="@style/AppTheme.NoAppBar">
+        </activity>
+        <activity
+            android:name=".app.views.serttings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.SettingsTheme">
         </activity>
     </application>
 
