@@ -6,17 +6,11 @@
 package io.github.slupik.savepass.data.settings;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import io.github.slupik.savepass.R;
+public class PasswordSettings extends SharedPrefSettings {
 
-public class MainPasswordSettings {
-    private static final String LOCAL_PASSWORD = "local_pass";
-
-    private Context mContext;
-
-    public MainPasswordSettings(Context context) {
-        mContext = context;
+    public PasswordSettings(Context context) {
+        super(context);
     }
 
     public String getPasswordAppHash(){
@@ -25,10 +19,5 @@ public class MainPasswordSettings {
 
     public boolean setPasswordAppHash(String hash) {
         return getSharedPreferences().edit().putString(LOCAL_PASSWORD, hash).commit();
-    }
-
-    private SharedPreferences getSharedPreferences(){
-        return mContext.getSharedPreferences(
-                mContext.getString(R.string.preference_local_password), Context.MODE_PRIVATE);
     }
 }
