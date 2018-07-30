@@ -71,6 +71,8 @@ dependencies {
     //      Lifecycle components
     implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$archLifecycleVersion"
+    //      Google services
+    implementation "com.firebase:firebase-jobdispatcher:$firebaseDispatcherVersion"
     /*
         TESTS
      */

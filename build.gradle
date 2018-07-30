@@ -54,6 +54,7 @@ allprojects {
         roomVersion = "1.1.1"
         archLifecycleVersion = "1.1.1"
         lottieVersion = "2.5.5"
+        firebaseDispatcherVersion = "0.8.5"
 
         //tests
         junit = "4.12"
