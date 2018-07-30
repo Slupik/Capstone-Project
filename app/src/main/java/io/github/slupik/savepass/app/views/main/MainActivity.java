@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
 import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
-import io.github.slupik.savepass.app.views.serttings.SettingsActivity;
+import io.github.slupik.savepass.app.views.settings.SettingsActivity;
 import io.github.slupik.savepass.app.views.viewpass.ShowPassActivity;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;

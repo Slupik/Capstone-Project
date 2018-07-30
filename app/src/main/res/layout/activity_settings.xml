@@ -12,7 +12,7 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:orientation="vertical"
-    tools:context=".app.views.serttings.SettingsActivity">
+    tools:context=".app.views.settings.SettingsActivity">
 
     <TextView
         android:layout_width="match_parent"

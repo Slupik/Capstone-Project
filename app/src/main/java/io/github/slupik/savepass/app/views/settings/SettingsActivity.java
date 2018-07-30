@@ -3,7 +3,7 @@
  * All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
  */
 
-package io.github.slupik.savepass.app.views.serttings;
+package io.github.slupik.savepass.app.views.settings;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

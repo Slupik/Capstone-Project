@@ -7,7 +7,7 @@
 
     <application>
         <activity
-            android:name=".app.views.serttings.SettingsActivity">
+            android:name=".app.views.settings.SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
