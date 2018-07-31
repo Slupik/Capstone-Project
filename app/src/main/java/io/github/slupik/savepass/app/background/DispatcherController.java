@@ -8,6 +8,7 @@ package io.github.slupik.savepass.app.background;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
@@ -70,7 +71,9 @@ public final class DispatcherController {
                             SyncService.getInterval(context) + SyncService.getFlextime(context)))
                     .setReplaceCurrent(false)
                     .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                    .setConstraints()
+                    .setConstraints(
+                            Constraint.ON_ANY_NETWORK
+                    )
                     .build();
             if(forceChanges) {
                 dispatcher.cancel(SyncService.TASK_TAG);
