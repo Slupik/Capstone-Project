@@ -29,9 +29,27 @@
             android:name=".app.views.viewpass.ShowPassActivity"
             android:theme="@style/AppTheme.NoAppBar">
         </activity>
-        <activity android:name=".app.views.settings.SettingsActivity"
-                  android:theme="@style/AppTheme">
+        <activity
+            android:name=".app.views.settings.SettingsActivity"
+            android:theme="@style/AppTheme">
         </activity>
+
+        <service
+            android:name=".app.background.reminder.RemindService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".app.background.syncer.SyncService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

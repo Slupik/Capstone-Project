@@ -7,6 +7,8 @@ package io.github.slupik.savepass.app;
 
 import android.app.Application;
 
+import io.github.slupik.savepass.app.background.DispatcherController;
+
 public class MyApplication extends Application {
     private String appPassword = "";
 
@@ -16,5 +18,11 @@ public class MyApplication extends Application {
 
     public void setAppPassword(String appPassword) {
         this.appPassword = appPassword;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        DispatcherController.startJobs(getApplicationContext());
     }
 }

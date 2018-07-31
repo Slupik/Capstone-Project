@@ -33,4 +33,8 @@ public class ServerSettings extends SharedPrefSettings {
     public boolean setInterval(int interval) {
         return getSharedPreferences().edit().putInt(SERVER_INTERVAL, interval).commit();
     }
+
+    public boolean isSyncingEnabled() {
+        return getInterval()>0;
+    }
 }

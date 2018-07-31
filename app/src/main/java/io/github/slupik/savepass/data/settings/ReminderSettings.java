@@ -18,4 +18,8 @@ public class ReminderSettings extends SharedPrefSettings {
     public boolean setSending(boolean isSending) {
         return getSharedPreferences().edit().putBoolean(REMINDER_SENDING, isSending).commit();
     }
+
+    public boolean isRemindingEnabled() {
+        return isSending();
+    }
 }

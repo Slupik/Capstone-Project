@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
+import io.github.slupik.savepass.app.background.DispatcherController;
 import io.github.slupik.savepass.data.settings.ReminderSettings;
 import io.github.slupik.savepass.data.settings.ServerSettings;
 
@@ -49,10 +50,20 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        int lastInterval = serverSettings.getInterval();
+        boolean lastIsSending = reminderSettings.isSending();
+
         serverSettings.setPassword(password.getText().toString());
         serverSettings.setLogin(user.getText().toString());
         serverSettings.setInterval(getInterval());
         reminderSettings.setSending(sendNotify.isChecked());
+
+        if(serverSettings.getInterval()!=lastInterval) {
+            DispatcherController.startSyncer(this, true);
+        }
+        if(reminderSettings.isSending()!=lastIsSending) {
+            DispatcherController.startReminder(this, true);
+        }
         super.onStop();
     }
 
