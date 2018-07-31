@@ -42,7 +42,7 @@ class LoginAnimationController {
         animation.setScale(1.25f);
     }
 
-    void playAnimation(){
+    void playAnimation(final Runnable callback){
         hideOtherViews();
         keyboardController.hideKeyboard(container);
         animation.playAnimation();
@@ -57,6 +57,7 @@ class LoginAnimationController {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        callback.run();
                         viewController.hidePasswordFragment(true);
                         viewController.hideListFragment(false);
                         actionBar.show();

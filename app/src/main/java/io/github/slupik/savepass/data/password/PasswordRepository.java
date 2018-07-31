@@ -44,6 +44,14 @@ public class PasswordRepository {
         return mLivePasswords;
     }
 
+    public List<EntityPassword> getPasswords() {
+        return mPasswordDAO.getAllPasswords();
+    }
+
+    public List<EntityPassword> getPasswordsToRemind() {
+        return mPasswordDAO.getPasswordsToRemind(System.currentTimeMillis());
+    }
+
     public void insert(EntityPassword entity) {
         new InsertAsyncTask(mPasswordDAO).execute(entity);
     }

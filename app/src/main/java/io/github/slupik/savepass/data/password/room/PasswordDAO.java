@@ -31,8 +31,8 @@ public interface PasswordDAO {
     @Query("SELECT * from passwords_table ORDER BY pass_name ASC")
     LiveData<List<EntityPassword>> getLiveDataOfAllPasswords();
 
-    @Query("SELECT * from passwords_table WHERE (last_update-:nowInMillis)>(remind_time) ORDER BY (last_update-:nowInMillis) DESC")
-    List<EntityPassword> getAllPasswordsToRemind(int nowInMillis);
+    @Query("SELECT * from passwords_table WHERE (:nowInMillis-last_remind)>(remind_time) ORDER BY (:nowInMillis-last_remind) DESC")
+    List<EntityPassword> getPasswordsToRemind(long nowInMillis);
 
 
     @Delete

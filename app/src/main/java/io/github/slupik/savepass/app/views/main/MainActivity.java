@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,6 +40,11 @@ public class MainActivity extends AppCompatActivity
         implements PassListFragment.OnFragmentInteractionListener,
         LocalPasswordFragment.OnFragmentInteractionListener, FragmentController, KeyboardController,
         PassListListener {
+    public static final String ARG_DATA = "data";
+    public static final String ARG_SOURCE = "source";
+
+    public static final int ARG_VALUE_SOURCE_NOTIFY = 1;
+
     private PasswordViewModel mPasswordViewModel;
     private PassListAdapter mListAdapter;
     private List<EntityPassword> mPasswords = new ArrayList<>();
@@ -106,8 +112,19 @@ public class MainActivity extends AppCompatActivity
     private void onSuccessLogin(String password){
         getLoginListener().onLoginSuccess();
         getMyApplication().setAppPassword(password);
-        animationController.playAnimation();
+        animationController.playAnimation(new Runnable() {
+            @Override
+            public void run() {
+                if(getIntent().getIntExtra(ARG_SOURCE, -1)==ARG_VALUE_SOURCE_NOTIFY
+                        && !TextUtils.isEmpty(getIntent().getStringExtra(ARG_DATA))){
+                    Intent detailAct = new Intent(getApplicationContext(), AddPassActivity.class);
+                    detailAct.putExtra(ShowPassActivity.ARG_DATA, getIntent().getStringExtra(ARG_DATA));
+                    startActivity(detailAct);
+                }
+            }
+        });
 
+//        new OldPassNotify(this).sendNotifies(mPasswords.get(1), mPasswords.get(0), mPasswords.get(2));
 //        PasswordRepository.getInstance(getMyApplication()).generateExample(getMyApplication());
     }
 
