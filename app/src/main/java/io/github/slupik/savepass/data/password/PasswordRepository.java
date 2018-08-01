@@ -5,8 +5,8 @@
 
 package io.github.slupik.savepass.data.password;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 
 import java.util.List;
 
@@ -22,18 +22,18 @@ public class PasswordRepository {
     private PasswordDAO mPasswordDAO;
     private LiveData<List<EntityPassword>> mLivePasswords;
 
-    private PasswordRepository(Application application) {
-        PasswordRoomDatabase db = PasswordRoomDatabase.getDatabase(application);
+    private PasswordRepository(Context context) {
+        PasswordRoomDatabase db = PasswordRoomDatabase.getDatabase(context);
         mPasswordDAO = db.passwordDAO();
         mLivePasswords = mPasswordDAO.getLiveDataOfAllPasswords();
     }
 
     //Singleton
-    public static PasswordRepository getInstance(final Application database) {
+    public static PasswordRepository getInstance(final Context context) {
         if (sInstance == null) {
             synchronized (PasswordRepository.class) {
                 if (sInstance == null) {
-                    sInstance = new PasswordRepository(database);
+                    sInstance = new PasswordRepository(context);
                 }
             }
         }
