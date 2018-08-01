@@ -9,42 +9,44 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import io.github.slupik.savepass.model.cryptography.Cryptography;
 
 @Entity(tableName = "passwords_table")
 public class EntityPassword {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = true) @SerializedName("local_id")
     private int id;
 
-    @ColumnInfo(name = "web_address")
+    @ColumnInfo(name = "web_address") @SerializedName("web_address")
     private String webAddress;
 
-    @ColumnInfo(name = "pass_name")
+    @ColumnInfo(name = "pass_name") @SerializedName("pass_name")
     private String passwordName;
 
-    @ColumnInfo(name = "login")
+    @ColumnInfo(name = "login") @SerializedName("login")
     private String login;
 
-    @ColumnInfo(name = "encrypted_password")
+    @ColumnInfo(name = "encrypted_password") @SerializedName("encrypted_password")
     private String encryptedPassword;
 
-    @ColumnInfo(name = "notes")
+    @ColumnInfo(name = "notes") @SerializedName("notes")
     private String notes;
 
-    @ColumnInfo(name = "short_desc")
+    @ColumnInfo(name = "short_desc") @SerializedName("short_desc")
     private String shortDesc;
 
-    @ColumnInfo(name = "remind_time")
+    @ColumnInfo(name = "remind_time") @SerializedName("remind_time")
     private long remindTimeInMilis;
 
-    @ColumnInfo(name = "last_update")
+    @ColumnInfo(name = "last_update") @SerializedName("last_update")
     private long lastUpdate;
 
-    @ColumnInfo(name = "last_remind")
+    @ColumnInfo(name = "last_remind") @SerializedName("last_remind")
     private long lastRemindTime;
 
-    @ColumnInfo(name = "sync_server")
+    @ColumnInfo(name = "sync_server") @SerializedName("sync_server")
     private boolean isToSyncWithServer;
 
     public int getId() {
