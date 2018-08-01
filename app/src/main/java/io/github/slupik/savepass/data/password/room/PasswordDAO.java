@@ -19,7 +19,7 @@ import java.util.List;
 public interface PasswordDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(EntityPassword word);
+    void insert(EntityPassword... word);
 
     @Update
     void updatePasswords(EntityPassword... users);

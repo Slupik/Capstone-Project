@@ -10,6 +10,7 @@ import android.content.Context;
 import java.util.concurrent.TimeUnit;
 
 import io.github.slupik.savepass.app.background.DefaultJobService;
+import io.github.slupik.savepass.app.online.backup.OnlineBackup;
 import io.github.slupik.savepass.data.settings.ServerSettings;
 
 public class SyncService extends DefaultJobService {
@@ -17,7 +18,8 @@ public class SyncService extends DefaultJobService {
 
     @Override
     protected void runAsyncTask(Context context) {
-
+        OnlineBackup.sendData(context);
+        OnlineBackup.saveData(context);
     }
 
     public static int getInterval(Context context) {
