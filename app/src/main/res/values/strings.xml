@@ -71,6 +71,7 @@
     <string name="notify_reminder_content">Name: %1$s, Login: %2$s</string>
     <string name="notify_reminder_summary_title">Some passwords should be changed!</string>
     <string name="notify_reminder_summary_content">Tap and see which should be updated</string>
+    <string name="pass_view_name">Name:</string>
     <string-array name="pref_sync_frequency_titles">
         <item>3 hours</item>
         <item>6 hours</item>

@@ -53,6 +53,10 @@ public class ShowPassFragment extends Fragment {
     FrameLayout coreContainer;
     @BindView(R.id.fab_edit_pass) @Nullable
     FloatingActionButton fabEditPass;
+    @BindView(R.id.pass_view_name) @Nullable
+    TextView nameField;
+    @BindView(R.id.name_info) @Nullable
+    LinearLayout nameContainer;
 
     //In all versions
     @BindView(R.id.login_info)
@@ -165,6 +169,8 @@ public class ShowPassFragment extends Fragment {
     public void setTitle(String title) {
         if (null != this.title) {
             this.title.setText(title);
+        } else if (null != nameField) {
+            nameField.setText(title);
         }
     }
 
