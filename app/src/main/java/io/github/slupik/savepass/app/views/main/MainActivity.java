@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -32,14 +33,17 @@ import io.github.slupik.savepass.app.MyApplication;
 import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
 import io.github.slupik.savepass.app.views.settings.SettingsActivity;
 import io.github.slupik.savepass.app.views.viewpass.ShowPassActivity;
+import io.github.slupik.savepass.app.views.viewpass.ShowPassFragment;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.model.cryptography.Cryptography;
 
+import static io.github.slupik.savepass.app.views.viewpass.ShowPassActivity.REQUEST_EDIT_PASSWORD_ENTITY;
+
 public class MainActivity extends AppCompatActivity
         implements PassListFragment.OnFragmentInteractionListener,
         LocalPasswordFragment.OnFragmentInteractionListener, FragmentController, KeyboardController,
-        PassListListener {
+        PassListListener, ShowPassFragment.OnFragmentInteractionListener {
     public static final String ARG_DATA = "data";
     public static final String ARG_SOURCE = "source";
 
@@ -130,9 +134,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(EntityPassword item) {
-        Intent newActivity = new Intent(getApplicationContext(), ShowPassActivity.class);
-        newActivity.putExtra(ShowPassActivity.ARG_DATA, new Gson().toJson(item));
-        startActivity(newActivity);
+        ShowPassFragment fragment = getShowingFragment();
+        if(null!=fragment) {
+            fragment.loadData(getMyApplication(), item);
+        } else {
+            Intent newActivity = new Intent(getApplicationContext(), ShowPassActivity.class);
+            newActivity.putExtra(ShowPassActivity.ARG_DATA, new Gson().toJson(item));
+            startActivity(newActivity);
+        }
+    }
+
+    private ShowPassFragment getShowingFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        return (ShowPassFragment)fragmentManager.findFragmentById(R.id.pass_info_fragment);
     }
 
     @Override
@@ -206,5 +220,32 @@ public class MainActivity extends AppCompatActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void startEditActivity(EntityPassword entity) {
+        Intent editAct = new Intent(getApplicationContext(), AddPassActivity.class);
+        editAct.putExtra(AddPassActivity.ARG_DATA, new Gson().toJson(entity));
+        startActivityForResult(editAct, REQUEST_EDIT_PASSWORD_ENTITY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (REQUEST_EDIT_PASSWORD_ENTITY == requestCode) {
+            if (resultCode == RESULT_OK && data!=null) {
+                if(data.getIntExtra(AddPassActivity.ARG_RESULT_STATUS, -1) == AddPassActivity.RESULT_STATUS_DELETE) {
+                    getShowingFragment().onEntityDelete();
+                }
+                if(data.getIntExtra(AddPassActivity.ARG_RESULT_STATUS, -1) == AddPassActivity.RESULT_STATUS_ADD) {
+                    String entData = data.getStringExtra(AddPassActivity.ARG_DATA);
+                    loadData(new Gson().fromJson(entData, EntityPassword.class));
+                }
+            }
+        }
+    }
+
+    private void loadData(EntityPassword mEntity) {
+        ShowPassFragment fragment = getShowingFragment();
+        fragment.loadData(getMyApplication(), mEntity);
     }
 }
