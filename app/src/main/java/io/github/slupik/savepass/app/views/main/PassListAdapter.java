@@ -6,7 +6,9 @@
 package io.github.slupik.savepass.app.views.main;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,12 +79,12 @@ public class PassListAdapter extends RecyclerView.Adapter<PassListAdapter.ViewHo
 
         @BindView(R.id.itemFavicon)
         ImageView favicon;
-
         @BindView(R.id.itemPassHeader)
         TextView header;
-
         @BindView(R.id.itemPassLogin)
         TextView login;
+        @BindView(R.id.itemPassDesc) @Nullable
+        TextView desc;
 
         EntityPassword mItem;
 
@@ -98,6 +100,14 @@ public class PassListAdapter extends RecyclerView.Adapter<PassListAdapter.ViewHo
             login.setText(password.getLogin());
             header.setText(password.getPasswordName());
             favicon.setImageDrawable(null);
+            if(null != desc) {
+                if(TextUtils.isEmpty(password.getShortDesc())) {
+                    desc.setVisibility(View.GONE);
+                } else {
+                    desc.setVisibility(View.VISIBLE);
+                    desc.setText(password.getShortDesc());
+                }
+            }
 
             FaviconGrabber.getDataForUrl(password.getWebAddress(), new FaviconGrabber.GrabberCallback() {
                 @Override

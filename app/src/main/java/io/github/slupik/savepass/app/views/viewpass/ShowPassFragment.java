@@ -49,9 +49,9 @@ public class ShowPassFragment extends Fragment {
     ImageButton btnEditPass;
 
     //In tablet, landscape version
-    @BindView(R.id.pass_info_core_container)
+    @BindView(R.id.pass_info_core_container) @Nullable
     FrameLayout coreContainer;
-    @BindView(R.id.fab_edit_pass)
+    @BindView(R.id.fab_edit_pass) @Nullable
     FloatingActionButton fabEditPass;
 
     @BindView(R.id.login_info)
