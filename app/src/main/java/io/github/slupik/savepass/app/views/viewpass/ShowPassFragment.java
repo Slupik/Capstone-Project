@@ -54,6 +54,7 @@ public class ShowPassFragment extends Fragment {
     @BindView(R.id.fab_edit_pass) @Nullable
     FloatingActionButton fabEditPass;
 
+    //In all versions
     @BindView(R.id.login_info)
     LinearLayout loginContainer;
     @BindView(R.id.login_field)
@@ -140,12 +141,12 @@ public class ShowPassFragment extends Fragment {
         }
     }
 
-    public void loadData(MyApplication app, EntityPassword entity) {
+    public void loadData(EntityPassword entity) {
         mEntity=entity;
         setTitle(entity.getPasswordName());
         setLogin(entity.getLogin());
         try {
-            setPassword(entity.getDecryptedPassword(app.getAppPassword()));
+            setPassword(entity.getDecryptedPassword(getMyApplication().getAppPassword()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,10 +186,16 @@ public class ShowPassFragment extends Fragment {
 
     private void setFieldWithContainer(String text, TextView field, LinearLayout container) {
         if(TextUtils.isEmpty(text)) {
-            container.setVisibility(View.GONE);
+            if(null != container) {
+                container.setVisibility(View.GONE);
+            }
         } else {
-            field.setText(text);
-            container.setVisibility(View.VISIBLE);
+            if(null != field) {
+                field.setText(text);
+            }
+            if(null != container) {
+                container.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -221,6 +228,10 @@ public class ShowPassFragment extends Fragment {
         if(coreContainer!=null) {
             coreContainer.setVisibility(View.GONE);
         }
+    }
+
+    private MyApplication getMyApplication(){
+        return ((MyApplication) getActivity().getApplication());
     }
 
     public interface OnFragmentInteractionListener {

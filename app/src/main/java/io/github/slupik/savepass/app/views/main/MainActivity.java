@@ -75,6 +75,21 @@ public class MainActivity extends AppCompatActivity
             getSupportActionBar().hide();
         }
         setupAdapter();
+        setupIfLoggedIn();
+    }
+
+    private void setupIfLoggedIn() {
+        if(!TextUtils.isEmpty(getMyApplication().getAppPassword())) {
+            animationController.showLoggedInView();
+            String data = getIntent().getStringExtra(ARG_DATA);
+            if(!TextUtils.isEmpty(data)) {
+                EntityPassword pass = new Gson().fromJson(data, EntityPassword.class);
+                ShowPassFragment fragment = getShowingFragment();
+                if(null!=fragment) {
+                    fragment.loadData(pass);
+                }
+            }
+        }
     }
 
     private void setupAdapter() {
@@ -136,7 +151,7 @@ public class MainActivity extends AppCompatActivity
     public void onListFragmentInteraction(EntityPassword item) {
         ShowPassFragment fragment = getShowingFragment();
         if(null!=fragment) {
-            fragment.loadData(getMyApplication(), item);
+            fragment.loadData(item);
         } else {
             Intent newActivity = new Intent(getApplicationContext(), ShowPassActivity.class);
             newActivity.putExtra(ShowPassActivity.ARG_DATA, new Gson().toJson(item));
@@ -144,9 +159,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Nullable
     private ShowPassFragment getShowingFragment() {
+        if(findViewById(R.id.pass_info_fragment_atv_main)==null) {
+            return null;
+        }
         FragmentManager fragmentManager = getSupportFragmentManager();
-        return (ShowPassFragment)fragmentManager.findFragmentById(R.id.pass_info_fragment);
+        return (ShowPassFragment)fragmentManager.findFragmentById(R.id.pass_info_fragment_atv_main);
     }
 
     @Override
@@ -246,6 +265,6 @@ public class MainActivity extends AppCompatActivity
 
     private void loadData(EntityPassword mEntity) {
         ShowPassFragment fragment = getShowingFragment();
-        fragment.loadData(getMyApplication(), mEntity);
+        fragment.loadData(mEntity);
     }
 }

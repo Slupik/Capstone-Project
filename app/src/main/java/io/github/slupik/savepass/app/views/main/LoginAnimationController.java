@@ -58,9 +58,7 @@ class LoginAnimationController {
                     @Override
                     public void run() {
                         callback.run();
-                        viewController.hidePasswordFragment(true);
-                        viewController.hideListFragment(false);
-                        actionBar.show();
+                        showLoggedInView();
                     }
                 }, 300);
             }
@@ -75,6 +73,12 @@ class LoginAnimationController {
 
             }
         });
+    }
+
+    void showLoggedInView() {
+        viewController.hidePasswordFragment(true);
+        viewController.hideListFragment(false);
+        actionBar.show();
     }
 
     private void hideOtherViews() {

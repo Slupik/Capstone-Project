@@ -1,6 +1,7 @@
 package io.github.slupik.savepass.app.views.viewpass;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +22,24 @@ public class ShowPassActivity extends AppCompatActivity implements ShowPassFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Configuration config = getResources().getConfiguration();
+        if (config.smallestScreenWidthDp >= 600 && config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            startInsteadPassList();
+        }
+
         setContentView(R.layout.activity_show_pass);
         loadFromBundle();
+    }
+
+    private void startInsteadPassList() {
+        // Code below creates new activity in history stack - it's not necessary because
+        // MainActivity is already instanced
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.putExtra(MainActivity.ARG_DATA, getIntent().getStringExtra(ARG_DATA));
+//        startActivity(intent);
+
+        finish();
     }
 
     private void loadFromBundle(){
@@ -48,7 +65,7 @@ public class ShowPassActivity extends AppCompatActivity implements ShowPassFragm
 
     private void loadData(EntityPassword mEntity) {
         ShowPassFragment fragment = getShowingFragment();
-        fragment.loadData(getMyApplication(), mEntity);
+        fragment.loadData(mEntity);
     }
 
     private ShowPassFragment getShowingFragment() {
