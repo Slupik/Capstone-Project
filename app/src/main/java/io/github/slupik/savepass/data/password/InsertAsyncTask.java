@@ -16,6 +16,14 @@ class InsertAsyncTask extends DaoAsyncTask {
 
     @Override
     protected void doBackgroundStuff(EntityPassword[] params) {
+        for(EntityPassword password:params) {
+            if(password.getLastUpdate()<=0) {
+                password.setLastUpdate(System.currentTimeMillis());
+            }
+            if(password.getLastRemindTime()<=0) {
+                password.setLastRemindTime(System.currentTimeMillis());
+            }
+        }
         getDao().insert(params);
     }
 }

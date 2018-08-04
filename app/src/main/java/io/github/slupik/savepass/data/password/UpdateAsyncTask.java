@@ -16,6 +16,12 @@ class UpdateAsyncTask extends DaoAsyncTask {
 
     @Override
     protected void doBackgroundStuff(EntityPassword[] params) {
+        for(EntityPassword password:params) {
+            password.setLastUpdate(System.currentTimeMillis());
+            if(password.getLastRemindTime()<=0) {
+                password.setLastRemindTime(System.currentTimeMillis());
+            }
+        }
         getDao().updatePasswords(params);
     }
 }
