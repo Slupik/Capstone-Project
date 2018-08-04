@@ -94,4 +94,6 @@
         <item>672</item>
         <item>-1</item>
     </string-array>
+    <string name="old_pass_widget_title">OLD PASSWORDS</string>
+    <string name="add_widget">Add widget</string>
 </resources>

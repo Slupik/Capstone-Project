@@ -5,8 +5,10 @@
 
 package io.github.slupik.savepass.app.views.main;
 
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,6 +37,8 @@ import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
 import io.github.slupik.savepass.app.views.settings.SettingsActivity;
 import io.github.slupik.savepass.app.views.viewpass.ShowPassActivity;
 import io.github.slupik.savepass.app.views.viewpass.ShowPassFragment;
+import io.github.slupik.savepass.app.widget.reminder.UpdateOldPassWidgetService;
+import io.github.slupik.savepass.app.widget.reminder.WidgetOldPassService;
 import io.github.slupik.savepass.data.password.PasswordViewModel;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.model.cryptography.Cryptography;
@@ -104,8 +109,28 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onChanged(@Nullable final List<EntityPassword> passwords) {
                 loadNewPasswords(passwords);
+                refreshWidgets();
             }
         });
+    }
+
+    private void refreshWidgets() {
+        Log.d("UPDATEWIDGET", "refreshWidgets");
+//        Intent intent = new Intent(this, OldPassWidget.class);
+//        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+//        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+//        // since it seems the onUpdate() is only fired on that:
+//        int[] ids = AppWidgetManager.getInstance(getApplication())
+//                .getAppWidgetIds(new ComponentName(getApplication(), OldPassWidget.class));
+//        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+//        sendBroadcast(intent);
+
+        //TODO is it working?
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), WidgetOldPassService.class));
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_recipe_list);
+
+        startService(new Intent(getApplicationContext(), UpdateOldPassWidgetService.class));
     }
 
     private void loadNewPasswords(List<EntityPassword> values) {

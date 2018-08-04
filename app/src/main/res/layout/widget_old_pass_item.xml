@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. by Sebastian Witasik
+  ~ All rights reserved. No part of this application may be reproduced or be part of other software, without the prior written permission of the publisher. For permission requests, write to the author(WitasikSebastian@gmail.com).
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="8dp"
+              android:layout_marginEnd="16dp"
+              android:layout_marginStart="16dp"
+              android:layout_marginTop="8dp"
+              android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/wop_favicon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/icon_of_the_password"
+        android:scaleType="fitXY"
+        tools:srcCompat="@android:drawable/ic_menu_info_details"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/wop_pass_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="PasswordName"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            />
+
+        <TextView
+            android:id="@+id/wop_pass_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Login"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+    </LinearLayout>
+</LinearLayout>

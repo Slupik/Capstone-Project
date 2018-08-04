@@ -50,6 +50,25 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
             </intent-filter>
         </service>
+
+        <receiver android:name=".app.widget.reminder.OldPassWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/old_pass_widget_info"/>
+        </receiver>
+
+        <service
+            android:name=".app.widget.reminder.WidgetOldPassService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <service
+            android:name=".app.widget.reminder.UpdateOldPassWidgetService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>
