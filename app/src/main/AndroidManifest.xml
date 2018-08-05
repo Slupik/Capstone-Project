@@ -51,7 +51,7 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".app.widget.reminder.OldPassWidget">
+        <receiver android:name=".app.widget.reminder.OldPassWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -64,11 +64,6 @@
         <service
             android:name=".app.widget.reminder.WidgetOldPassService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
-        <service
-            android:name=".app.widget.reminder.UpdateOldPassWidgetService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
     </application>
 
 </manifest>

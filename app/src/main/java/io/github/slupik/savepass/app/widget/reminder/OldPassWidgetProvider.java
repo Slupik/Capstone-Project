@@ -7,63 +7,67 @@ package io.github.slupik.savepass.app.widget.reminder;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.google.gson.Gson;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.data.password.PasswordRepository;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
-import static io.github.slupik.savepass.app.widget.reminder.WidgetOldPassService.ARG_PASS_LIST;
-
 /**
  * Implementation of App Widget functionality.
  */
-public class OldPassWidget extends AppWidgetProvider {
+public class OldPassWidgetProvider extends AppWidgetProvider {
+    public static List<EntityPassword> mPasswordList = new ArrayList<>();
 
-    static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
-                                final int appWidgetId) {
-
+    public static void updateOldPassWidgets(final Context context){
         new AsyncTask<Void, Void, List<EntityPassword>>() {
             @Override
             protected List<EntityPassword> doInBackground(Void... voids) {
-                //TODO change to getPasswordsToRemind()
                 return PasswordRepository.getInstance(context).getPasswords();
             }
 
             @Override
             protected void onPostExecute(List<EntityPassword> passwords) {
                 super.onPostExecute(passwords);
-                Log.d("UPDATEWIDGET", "passwords: "+passwords.size());
-                Log.d("UPDATEWIDGET", "appWidgetId: "+appWidgetId);
+                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                final int[] appWidgetIds = appWidgetManager.getAppWidgetIds
+                        (new ComponentName(context, OldPassWidgetProvider.class));
 
-                String passwordsInString = new Gson().toJson(passwords);
-                Intent intent = new Intent(context, WidgetOldPassService.class);
-                intent.putExtra(ARG_PASS_LIST, passwordsInString);
-
-                // Construct the RemoteViews object
-                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.old_pass_widget);
-                views.setRemoteAdapter(R.id.widget_recipe_list, intent);
-
-                // Instruct the widget manager to update the widget
-                appWidgetManager.updateAppWidget(appWidgetId, views);
+                OldPassWidgetProvider.updateOldPassWidgets(context, appWidgetManager, appWidgetIds,
+                        passwords);
             }
         }.execute();
     }
 
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
+    public static void updateOldPassWidgets(Context context, AppWidgetManager appWidgetManager,
+                                                int[] appWidgetIds, List<EntityPassword> reminderList) {
+        mPasswordList = reminderList;
+
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.old_pass_widget);
+
+            Intent intent = new Intent(context, WidgetOldPassService.class);
+            views.setRemoteAdapter(R.id.widget_recipe_list, intent);
+            ComponentName component = new ComponentName(context, OldPassWidgetProvider.class);
+
+            //Trigger data update to handle the ListView widgets and force a data refresh
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_recipe_list);
+
+            appWidgetManager.updateAppWidget(component, views);
         }
+    }
+
+    @Override
+    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
+            updateOldPassWidgets(context);
     }
 
     @Override

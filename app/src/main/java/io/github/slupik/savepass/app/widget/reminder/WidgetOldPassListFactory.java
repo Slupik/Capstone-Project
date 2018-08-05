@@ -8,7 +8,6 @@ package io.github.slupik.savepass.app.widget.reminder;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -22,15 +21,15 @@ import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.externalapi.FaviconGrabber;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
-public class WidgetOldPassListFactory implements RemoteViewsService.RemoteViewsFactory {
+class WidgetOldPassListFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final Context mContext;
     private final List<EntityPassword> mPasswords = new ArrayList<>();
 
-    WidgetOldPassListFactory(Context context, List<EntityPassword> data) {
+    WidgetOldPassListFactory(Context context) {
         mContext = context;
         mPasswords.clear();
-        mPasswords.addAll(data);
+        mPasswords.addAll(OldPassWidgetProvider.mPasswordList);
     }
 
     @Override
@@ -40,21 +39,8 @@ public class WidgetOldPassListFactory implements RemoteViewsService.RemoteViewsF
 
     @Override
     public void onDataSetChanged() {
-        Log.d("UPDATEWIDGET", "onDataSetChangedtest");
-//        new AsyncTask<Void, Void, List<EntityPassword>>() {
-//            @Override
-//            protected List<EntityPassword> doInBackground(Void... voids) {
-//                return PasswordRepository.getInstance(getContext()).getPasswords();
-//            }
-//
-//            @Override
-//            protected void onPostExecute(List<EntityPassword> passwords) {
-//                super.onPostExecute(passwords);
-//                mPasswords.clear();
-//                mPasswords.addAll(passwords);
-//            }
-//        }.execute();
-//        mPasswords.addAll(mPasswords);
+        mPasswords.clear();
+        mPasswords.addAll(OldPassWidgetProvider.mPasswordList);
     }
 
     @Override
