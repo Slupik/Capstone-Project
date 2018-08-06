@@ -8,6 +8,7 @@ package io.github.slupik.savepass.app.views.viewpass;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +31,7 @@ import butterknife.OnClick;
 import butterknife.Optional;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
+import io.github.slupik.savepass.app.views.main.MainActivity;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
 
@@ -102,7 +104,6 @@ public class ShowPassFragment extends Fragment {
 
         return view;
     }
-
     private void setupAppBar() {
         if(null != appBar) {
             appBar.setNavigationOnClickListener(new View.OnClickListener() {

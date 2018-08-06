@@ -6,11 +6,13 @@
 package io.github.slupik.savepass.app.widget.reminder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -19,6 +21,7 @@ import java.util.List;
 
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.externalapi.FaviconGrabber;
+import io.github.slupik.savepass.app.views.viewpass.ShowPassActivity;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
 class WidgetOldPassListFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -80,6 +83,11 @@ class WidgetOldPassListFactory implements RemoteViewsService.RemoteViewsFactory 
             @Override
             public void onError() {}
         });
+
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtra(ShowPassActivity.ARG_DATA, new Gson().toJson(bean));
+        views.setOnClickFillInIntent(R.id.wop_pass_container, fillInIntent);
+
         return views;
     }
 

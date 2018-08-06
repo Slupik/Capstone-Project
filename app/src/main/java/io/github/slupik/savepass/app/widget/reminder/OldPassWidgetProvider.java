@@ -5,6 +5,7 @@
 
 package io.github.slupik.savepass.app.widget.reminder;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.slupik.savepass.R;
+import io.github.slupik.savepass.app.views.viewpass.ShowPassActivity;
 import io.github.slupik.savepass.data.password.PasswordRepository;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
@@ -54,6 +56,12 @@ public class OldPassWidgetProvider extends AppWidgetProvider {
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.old_pass_widget);
 
+            //Add pending intent template
+            Intent appIntent = new Intent(context, ShowPassActivity.class);
+            PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setPendingIntentTemplate(R.id.widget_recipe_list, appPendingIntent);
+
+            //Build component
             Intent intent = new Intent(context, WidgetOldPassService.class);
             views.setRemoteAdapter(R.id.widget_recipe_list, intent);
             ComponentName component = new ComponentName(context, OldPassWidgetProvider.class);

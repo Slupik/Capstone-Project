@@ -47,8 +47,10 @@ public class MainActivity extends AppCompatActivity
         PassListListener, ShowPassFragment.OnFragmentInteractionListener {
     public static final String ARG_DATA = "data";
     public static final String ARG_SOURCE = "source";
+    public static final String ARG_ACTION_TYPE = "action-type";
 
     public static final int ARG_VALUE_SOURCE_NOTIFY = 1;
+    public static final int ARG_VALUE_ACTION_LOG_IN = 1;
 
     private PasswordViewModel mPasswordViewModel;
     private PassListAdapter mListAdapter;
@@ -145,6 +147,11 @@ public class MainActivity extends AppCompatActivity
                     Intent detailAct = new Intent(getApplicationContext(), AddPassActivity.class);
                     detailAct.putExtra(ShowPassActivity.ARG_DATA, getIntent().getStringExtra(ARG_DATA));
                     startActivity(detailAct);
+                }
+                if(getIntent().getIntExtra(ARG_ACTION_TYPE, -1) == ARG_VALUE_ACTION_LOG_IN) {
+                    Intent data = new Intent();
+                    setResult(RESULT_OK, data);
+                    finish();
                 }
             }
         });
