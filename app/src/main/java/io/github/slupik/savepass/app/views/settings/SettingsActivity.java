@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,10 +22,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.background.DispatcherController;
-import io.github.slupik.savepass.model.server.backup.OnlineBackup;
-import io.github.slupik.savepass.model.server.backup.ServerDefaultSettings;
 import io.github.slupik.savepass.data.settings.ReminderSettings;
 import io.github.slupik.savepass.data.settings.ServerSettings;
+import io.github.slupik.savepass.model.server.backup.OnlineBackup;
+import io.github.slupik.savepass.model.server.backup.ServerDefaultSettings;
 
 public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.entity_user_settings)
@@ -151,7 +150,6 @@ public class SettingsActivity extends AppCompatActivity {
             syncTask = new AsyncTask<Void, Void, Void>(){
                         @Override
                         protected Void doInBackground(Void... voids) {
-                            Log.d("SYNCER", "bakcground");
                             Context context = getApplicationContext();
                             OnlineBackup.sendData(context);
                             OnlineBackup.saveData(context);

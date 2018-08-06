@@ -14,6 +14,8 @@ import java.util.List;
 import io.github.slupik.savepass.data.password.PasswordRepository;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.data.settings.ServerSettings;
+import io.github.slupik.savepass.model.server.backup.object.BodyDownloadBackup;
+import io.github.slupik.savepass.model.server.backup.object.BodySendBackup;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +27,7 @@ public final class OnlineBackup {
 
     public static void sendData(Context context) {
         List<EntityPassword> passwords = PasswordRepository.getInstance(context).getPasswords();
-        Call<List<EntityPassword>> call = getService(context).send(passwords);
+        Call<List<EntityPassword>> call = getService(context).send(new BodySendBackup(context, passwords));
         call.enqueue(new Callback<List<EntityPassword>>() {
             @Override
             public void onResponse(@NonNull Call<List<EntityPassword>> call, @NonNull Response<List<EntityPassword>> response) {}
@@ -35,7 +37,7 @@ public final class OnlineBackup {
     }
 
     public static void saveData(final Context context) {
-        Call<List<EntityPassword>> call = getService(context).download();
+        Call<List<EntityPassword>> call = getService(context).download(new BodyDownloadBackup(context));
         call.enqueue(new Callback<List<EntityPassword>>() {
             @Override
             public void onResponse(@NonNull Call<List<EntityPassword>> call, @NonNull Response<List<EntityPassword>> response) {
