@@ -72,12 +72,11 @@ public class SettingsActivity extends AppCompatActivity {
         serverSettings.setInterval(getInterval());
         reminderSettings.setSending(sendNotify.isChecked());
 
-        //TODO add stop sync option
         if(serverSettings.getInterval()!=lastInterval) {
-            DispatcherController.startSyncer(this, true);
+            DispatcherController.switchSyncer(this, true);
         }
         if(reminderSettings.isSending()!=lastIsSending) {
-            DispatcherController.startReminder(this, true);
+            DispatcherController.switchReminder(this, true);
         }
         super.onStop();
     }

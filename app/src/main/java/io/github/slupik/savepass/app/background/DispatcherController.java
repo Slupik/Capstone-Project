@@ -28,11 +28,11 @@ public final class DispatcherController {
         if (sInitialized) return;
         sInitialized = true;
         Context appContext = context.getApplicationContext();
-        startReminder(appContext, false);
-        startSyncer(appContext, false);
+        switchReminder(appContext, false);
+        switchSyncer(appContext, false);
     }
 
-    public static void startReminder(Context context, boolean forceChanges){
+    public static void switchReminder(Context context, boolean forceChanges){
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
         if(new ReminderSettings(context).isRemindingEnabled()) {
             Job myJob = dispatcher.newJobBuilder()
@@ -58,7 +58,7 @@ public final class DispatcherController {
         }
     }
 
-    public static void startSyncer(Context context, boolean forceChanges){
+    public static void switchSyncer(Context context, boolean forceChanges){
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
         if(new ServerSettings(context).isSyncingEnabled()) {
             Job myJob = dispatcher.newJobBuilder()
