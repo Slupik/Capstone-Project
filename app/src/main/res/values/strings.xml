@@ -73,6 +73,7 @@
     <string name="notify_reminder_summary_content">Tap and see which should be updated</string>
     <string name="pass_view_name">Name:</string>
     <string-array name="pref_sync_frequency_titles">
+        <item>1 hour</item>
         <item>3 hours</item>
         <item>6 hours</item>
         <item>12 hours</item>
@@ -84,6 +85,7 @@
         <item>Never</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
+        <item>1</item>
         <item>3</item>
         <item>6</item>
         <item>12</item>
@@ -96,4 +98,7 @@
     </string-array>
     <string name="old_pass_widget_title">OLD PASSWORDS</string>
     <string name="add_widget">Add widget</string>
+    <string name="base_url">Url for the backup server</string>
+    <string name="backup_send_url_info">On this url password will be sending:</string>
+    <string name="backup_download_url_info">From this url password will be downloading:</string>
 </resources>

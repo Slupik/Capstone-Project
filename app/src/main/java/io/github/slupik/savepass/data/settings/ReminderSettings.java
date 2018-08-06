@@ -8,12 +8,13 @@ package io.github.slupik.savepass.data.settings;
 import android.content.Context;
 
 public class ReminderSettings extends SharedPrefSettings {
+
     public ReminderSettings(Context context) {
         super(context);
     }
 
     public boolean isSending(){
-        return getSharedPreferences().getBoolean(REMINDER_SENDING, true);
+        return getSharedPreferences().getBoolean(REMINDER_SENDING, false);
     }
     public boolean setSending(boolean isSending) {
         return getSharedPreferences().edit().putBoolean(REMINDER_SENDING, isSending).commit();

@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.github.slupik.savepass.data.password.PasswordRepository;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
+import io.github.slupik.savepass.data.settings.ServerSettings;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,7 +25,7 @@ public final class OnlineBackup {
 
     public static void sendData(Context context) {
         List<EntityPassword> passwords = PasswordRepository.getInstance(context).getPasswords();
-        Call<List<EntityPassword>> call = getService().send(passwords);
+        Call<List<EntityPassword>> call = getService(context).send(passwords);
         call.enqueue(new Callback<List<EntityPassword>>() {
             @Override
             public void onResponse(@NonNull Call<List<EntityPassword>> call, @NonNull Response<List<EntityPassword>> response) {}
@@ -34,7 +35,7 @@ public final class OnlineBackup {
     }
 
     public static void saveData(final Context context) {
-        Call<List<EntityPassword>> call = getService().download();
+        Call<List<EntityPassword>> call = getService(context).download();
         call.enqueue(new Callback<List<EntityPassword>>() {
             @Override
             public void onResponse(@NonNull Call<List<EntityPassword>> call, @NonNull Response<List<EntityPassword>> response) {
@@ -91,14 +92,14 @@ public final class OnlineBackup {
         return null;
     }
 
-    private static BackupService getService() {
-        return getRetrofit().create(BackupService.class);
+    private static BackupService getService(Context context) {
+        return getRetrofit(context).create(BackupService.class);
     }
 
-    private static Retrofit getRetrofit() {
+    private static Retrofit getRetrofit(Context context) {
         if(null==retrofit) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("")
+                    .baseUrl(new ServerSettings(context).getBaseUrl())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

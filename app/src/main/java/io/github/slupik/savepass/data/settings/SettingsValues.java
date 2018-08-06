@@ -11,6 +11,7 @@ class SettingsValues {
     static final String SERVER_PASSWORD = "server_pass";
     static final String SERVER_LOGIN = "server_login";
     static final String SERVER_INTERVAL = "server_interval";
+    static final String SERVER_BASE_URL = "server_base_url";
 
     static final String REMINDER_SENDING = "reminder_sending";
 }

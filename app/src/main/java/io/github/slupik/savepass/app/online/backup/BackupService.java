@@ -14,12 +14,15 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+import static io.github.slupik.savepass.app.online.backup.ServerDefaultSettings.DOWNLOADING_URL;
+import static io.github.slupik.savepass.app.online.backup.ServerDefaultSettings.SENDING_URL;
+
 public interface BackupService {
 
     @FormUrlEncoded
-    @POST("backup/send")
+    @POST(SENDING_URL)
     Call<List<EntityPassword>> send(@Body List<EntityPassword> passwords);
 
-    @GET("backup/download")
+    @GET(DOWNLOADING_URL)
     Call<List<EntityPassword>> download();
 }

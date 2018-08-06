@@ -34,6 +34,13 @@ public class ServerSettings extends SharedPrefSettings {
         return getSharedPreferences().edit().putInt(SERVER_INTERVAL, interval).commit();
     }
 
+    public String getBaseUrl(){
+        return getSharedPreferences().getString(SERVER_BASE_URL, "localhost");
+    }
+    public boolean setBaseUrl(String baseURL) {
+        return getSharedPreferences().edit().putString(SERVER_BASE_URL, baseURL).commit();
+    }
+
     public boolean isSyncingEnabled() {
         return getInterval()>0;
     }
