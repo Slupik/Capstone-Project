@@ -7,8 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.gson.Gson;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
 import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
@@ -19,6 +23,9 @@ public class ShowPassActivity extends AppCompatActivity implements ShowPassFragm
     public static final String ARG_DATA = "data";
     public static final int REQUEST_EDIT_PASSWORD_ENTITY = 0;
     public static final int REQUEST_LOGGED_IN = 1;
+
+    @BindView(R.id.adView)
+    AdView mAdView;
 
     private EntityPassword mEntity;
 
@@ -32,7 +39,15 @@ public class ShowPassActivity extends AppCompatActivity implements ShowPassFragm
         }
 
         setContentView(R.layout.activity_show_pass);
+        ButterKnife.bind(this);
+
         loadFromBundle();
+        setupAd();
+    }
+
+    private void setupAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void startInsteadPassList() {
