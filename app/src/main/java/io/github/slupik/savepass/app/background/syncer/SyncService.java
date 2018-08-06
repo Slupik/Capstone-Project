@@ -10,7 +10,7 @@ import android.content.Context;
 import java.util.concurrent.TimeUnit;
 
 import io.github.slupik.savepass.app.background.DefaultJobService;
-import io.github.slupik.savepass.app.online.backup.OnlineBackup;
+import io.github.slupik.savepass.model.server.backup.OnlineBackup;
 import io.github.slupik.savepass.data.settings.ServerSettings;
 
 public class SyncService extends DefaultJobService {

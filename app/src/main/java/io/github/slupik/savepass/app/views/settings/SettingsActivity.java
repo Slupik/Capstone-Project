@@ -23,8 +23,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.background.DispatcherController;
-import io.github.slupik.savepass.app.online.backup.OnlineBackup;
-import io.github.slupik.savepass.app.online.backup.ServerDefaultSettings;
+import io.github.slupik.savepass.model.server.backup.OnlineBackup;
+import io.github.slupik.savepass.model.server.backup.ServerDefaultSettings;
 import io.github.slupik.savepass.data.settings.ReminderSettings;
 import io.github.slupik.savepass.data.settings.ServerSettings;
 

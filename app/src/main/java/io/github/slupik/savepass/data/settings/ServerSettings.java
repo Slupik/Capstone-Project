@@ -35,7 +35,11 @@ public class ServerSettings extends SharedPrefSettings {
     }
 
     public String getBaseUrl(){
-        return getSharedPreferences().getString(SERVER_BASE_URL, "localhost");
+        String base = getSharedPreferences().getString(SERVER_BASE_URL, "localhost");
+        if(!base.startsWith("http")) {
+            base = "http://"+base;
+        }
+        return base;
     }
     public boolean setBaseUrl(String baseURL) {
         return getSharedPreferences().edit().putString(SERVER_BASE_URL, baseURL).commit();
