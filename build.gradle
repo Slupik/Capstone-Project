@@ -55,6 +55,7 @@ allprojects {
         archLifecycleVersion = "1.1.1"
         lottieVersion = "2.5.5"
         firebaseDispatcherVersion = "0.8.5"
+        googleAdsVersion = "15.0.1"
 
         //tests
         junit = "4.12"

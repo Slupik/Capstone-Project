@@ -81,6 +81,9 @@ dependencies {
 
     //      Google services
     implementation "com.firebase:firebase-jobdispatcher:$firebaseDispatcherVersion"
+    implementation ("com.google.android.gms:play-services-ads:$googleAdsVersion") {
+        exclude group: 'com.android.support', module: 'customtabs'
+    }
 
     /*
                 TESTS
