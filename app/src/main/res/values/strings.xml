@@ -101,4 +101,5 @@
     <string name="base_url">Url for the backup server</string>
     <string name="backup_send_url_info">On this url password will be sending:</string>
     <string name="backup_download_url_info">From this url password will be downloading:</string>
+    <string name="sync_with_server">Sync data now</string>
 </resources>

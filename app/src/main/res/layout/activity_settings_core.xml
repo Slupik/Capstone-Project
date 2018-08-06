@@ -141,6 +141,13 @@
             android:entries="@array/pref_sync_frequency_titles"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/sync_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/sync_with_server"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

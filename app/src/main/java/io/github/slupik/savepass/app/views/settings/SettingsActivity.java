@@ -6,10 +6,13 @@
 package io.github.slupik.savepass.app.views.settings;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,8 +20,10 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.background.DispatcherController;
+import io.github.slupik.savepass.app.online.backup.OnlineBackup;
 import io.github.slupik.savepass.app.online.backup.ServerDefaultSettings;
 import io.github.slupik.savepass.data.settings.ReminderSettings;
 import io.github.slupik.savepass.data.settings.ServerSettings;
@@ -137,5 +142,27 @@ public class SettingsActivity extends AppCompatActivity {
                 backupDownloadUrl.setText(baseUrl.getText().toString()+"/"+ ServerDefaultSettings.DOWNLOADING_URL);
             }
         });
+    }
+
+    private AsyncTask<Void, Void, Void> syncTask = null;
+    @OnClick(R.id.sync_now)
+    void onSyncNow(){
+        if(syncTask==null) {
+            syncTask = new AsyncTask<Void, Void, Void>(){
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            Log.d("SYNCER", "bakcground");
+                            Context context = getApplicationContext();
+                            OnlineBackup.sendData(context);
+                            OnlineBackup.saveData(context);
+                            return null;
+                        }
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            syncTask=null;
+                        }
+                    };
+            syncTask.execute();
+        }
     }
 }
