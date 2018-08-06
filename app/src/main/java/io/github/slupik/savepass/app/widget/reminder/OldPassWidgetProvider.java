@@ -32,7 +32,7 @@ public class OldPassWidgetProvider extends AppWidgetProvider {
         new AsyncTask<Void, Void, List<EntityPassword>>() {
             @Override
             protected List<EntityPassword> doInBackground(Void... voids) {
-                return PasswordRepository.getInstance(context).getPasswords();
+                return PasswordRepository.getInstance(context).getPasswordsToRemind();
             }
 
             @Override
