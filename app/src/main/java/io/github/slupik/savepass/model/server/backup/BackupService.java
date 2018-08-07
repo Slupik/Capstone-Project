@@ -10,6 +10,7 @@ import java.util.List;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.model.server.backup.object.BodyDownloadBackup;
 import io.github.slupik.savepass.model.server.backup.object.BodySendBackup;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
@@ -22,7 +23,7 @@ public interface BackupService {
 
     @POST(SENDING_URL)
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Call<List<EntityPassword>> send(@Body BodySendBackup body);
+    Call<ResponseBody> send(@Body BodySendBackup body);
 
     @POST(DOWNLOADING_URL)
     @Headers({ "Content-Type: application/json;charset=UTF-8"})

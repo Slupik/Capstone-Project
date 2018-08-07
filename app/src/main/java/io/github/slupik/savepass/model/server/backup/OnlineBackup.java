@@ -8,7 +8,7 @@ package io.github.slupik.savepass.model.server.backup;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 import io.github.slupik.savepass.data.password.PasswordRepository;
@@ -16,6 +16,9 @@ import io.github.slupik.savepass.data.password.room.EntityPassword;
 import io.github.slupik.savepass.data.settings.ServerSettings;
 import io.github.slupik.savepass.model.server.backup.object.BodyDownloadBackup;
 import io.github.slupik.savepass.model.server.backup.object.BodySendBackup;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import okio.Buffer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,12 +30,12 @@ public final class OnlineBackup {
 
     public static void sendData(Context context) {
         List<EntityPassword> passwords = PasswordRepository.getInstance(context).getPasswords();
-        Call<List<EntityPassword>> call = getService(context).send(new BodySendBackup(context, passwords));
-        call.enqueue(new Callback<List<EntityPassword>>() {
+        Call<ResponseBody> call = getService(context).send(new BodySendBackup(context, passwords));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<List<EntityPassword>> call, @NonNull Response<List<EntityPassword>> response) {}
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {}
             @Override
-            public void onFailure(@NonNull Call<List<EntityPassword>> call, @NonNull Throwable t) {}
+            public void onFailure(Call<ResponseBody> call, Throwable t) {}
         });
     }
 
@@ -45,6 +48,7 @@ public final class OnlineBackup {
                 if(null!=passList) {
                     updateFromServer(context, passList);
                     deleteFromServer(context, passList);
+                    addFromServer(context, passList);
                 }
             }
 
@@ -53,45 +57,16 @@ public final class OnlineBackup {
         });
     }
 
+    private static void addFromServer(Context context, List<EntityPassword> downloadedList) {
+        new PasswordAdder(context).execute(downloadedList);
+    }
+
     private static void deleteFromServer(Context context, List<EntityPassword> downloadedList) {
-        List<EntityPassword> savedList = PasswordRepository.getInstance(context).getPasswords();
-
-        List<EntityPassword> toDelete = new ArrayList<>();
-        for(EntityPassword saved:savedList) {
-            EntityPassword downloaded = getIdenticalPasswordEntity(downloadedList, saved);
-            if(null==downloaded && saved.isToSyncWithServer()) {
-                toDelete.add(saved);
-            }
-        }
-
-        PasswordRepository.getInstance(context).delete(toDelete.toArray(new EntityPassword[toDelete.size()]));
+        new PasswordDeleter(context).execute(downloadedList);
     }
 
     private static void updateFromServer(Context context, List<EntityPassword> downloadedList) {
-        List<EntityPassword> savedList = PasswordRepository.getInstance(context).getPasswords();
-
-        List<EntityPassword> toUpdate = new ArrayList<>();
-        for(EntityPassword downloaded:downloadedList) {
-            EntityPassword saved = getIdenticalPasswordEntity(savedList, downloaded);
-            if(isToSave(saved, downloaded)) {
-                toUpdate.add(downloaded);
-            }
-        }
-
-        PasswordRepository.getInstance(context).update(toUpdate.toArray(new EntityPassword[toUpdate.size()]));
-    }
-
-    private static boolean isToSave(EntityPassword saved, EntityPassword downloaded) {
-        return null == saved || (downloaded.getLastUpdate() > saved.getLastUpdate() && saved.isToSyncWithServer());
-    }
-
-    private static EntityPassword getIdenticalPasswordEntity(List<EntityPassword> list, EntityPassword entity) {
-        for(EntityPassword item:list) {
-            if(item.getId()==entity.getId()) {
-                return item;
-            }
-        }
-        return null;
+        new PasswordUpdater(context).execute(downloadedList);
     }
 
     private static BackupService getService(Context context) {
@@ -106,5 +81,20 @@ public final class OnlineBackup {
                     .build();
         }
         return retrofit;
+    }
+
+    @SuppressWarnings("unused")
+    private static String bodyToString(final RequestBody request) {
+        try {
+            final RequestBody copy = request;
+            final Buffer buffer = new Buffer();
+            if (copy != null)
+                copy.writeTo(buffer);
+            else
+                return "";
+            return buffer.readUtf8();
+        } catch (final IOException e) {
+            return "did not work";
+        }
     }
 }

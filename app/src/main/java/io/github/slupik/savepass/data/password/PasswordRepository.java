@@ -52,7 +52,7 @@ public class PasswordRepository {
         return mPasswordDAO.getPasswordsToRemind(System.currentTimeMillis());
     }
 
-    public void insert(EntityPassword entity) {
+    public void insert(EntityPassword... entity) {
         new InsertAsyncTask(mPasswordDAO).execute(entity);
     }
 
