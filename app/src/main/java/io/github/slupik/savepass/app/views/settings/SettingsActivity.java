@@ -9,9 +9,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -53,8 +55,26 @@ public class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         serverSettings = new ServerSettings(this);
         reminderSettings = new ReminderSettings(this);
+        setupAppBar();
         loadData();
         addBaseUrlChangeListener();
+    }
+
+    private void setupAppBar() {
+        ActionBar appBar = getSupportActionBar();
+        if(null != appBar) {
+            appBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadData() {
@@ -146,6 +166,9 @@ public class SettingsActivity extends AppCompatActivity {
     private AsyncTask<Void, Void, Void> syncTask = null;
     @OnClick(R.id.sync_now)
     void onSyncNow(){
+        serverSettings.setPassword(password.getText().toString());
+        serverSettings.setLogin(user.getText().toString());
+        serverSettings.setBaseUrl(baseUrl.getText().toString());
         if(syncTask==null) {
             syncTask = new AsyncTask<Void, Void, Void>(){
                         @Override
