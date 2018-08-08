@@ -83,6 +83,13 @@ public class MainActivity extends AppCompatActivity
         checkDataFromNotify();
     }
 
+    private void startTestsAfterLogIn(){
+//        OldPassNotifyTester.sendNotify(getMyApplication(), mPasswords.get(2));
+
+//        PassDatabaseTestUtils.generateAndSavePass(getMyApplication());
+//        PassDatabaseTestUtils.generateAndSaveReallyOldPass(getMyApplication());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -169,8 +176,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-//        new OldPassNotify(this).sendNotifies(mPasswords.get(1), mPasswords.get(0), mPasswords.get(2));
-//        PasswordRepository.getInstance(getMyApplication()).generateExample(getMyApplication());
+        startTestsAfterLogIn();
     }
 
     private void checkDataFromNotify() {
