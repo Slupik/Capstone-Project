@@ -12,12 +12,16 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import io.github.slupik.savepass.model.cryptography.Cryptography;
+import io.github.slupik.savepass.model.utils.Randomizer;
 
 @Entity(tableName = "passwords_table")
 public class EntityPassword {
 
     @PrimaryKey(autoGenerate = true) @SerializedName("local_id")
     private int id;
+
+    @ColumnInfo(name = "unique_code") @SerializedName("unique_code")
+    private String uniqueCode = Randomizer.randomStandardString(32);
 
     @ColumnInfo(name = "web_address") @SerializedName("web_address")
     private String webAddress;
@@ -55,6 +59,14 @@ public class EntityPassword {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUniqueCode() {
+        return uniqueCode;
+    }
+
+    public void setUniqueCode(String uniqueCode) {
+        this.uniqueCode = uniqueCode;
     }
 
     public String getWebAddress() {

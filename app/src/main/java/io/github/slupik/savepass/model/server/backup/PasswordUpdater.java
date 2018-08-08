@@ -28,7 +28,11 @@ public class PasswordUpdater extends PasswordTask {
         for(EntityPassword downloaded:downloadedList) {
             EntityPassword saved = getIdenticalPasswordEntity(savedList, downloaded);
             if(isToSave(saved, downloaded)) {
-                toUpdate.add(downloaded);
+                EntityPassword cloned = getEntityWithoutLocalId(downloaded);
+                if(saved!=null) {
+                    cloned.setId(saved.getId());
+                }
+                toUpdate.add(cloned);
             }
         }
 

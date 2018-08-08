@@ -24,10 +24,26 @@ abstract class PasswordTask extends AsyncTask<List<EntityPassword>, Void, Void> 
 
     static EntityPassword getIdenticalPasswordEntity(List<EntityPassword> list, EntityPassword entity) {
         for(EntityPassword item:list) {
-            if(item.getId()==entity.getId()) {
+            if(item.getUniqueCode().equals(entity.getUniqueCode())) {
                 return item;
             }
         }
         return null;
+    }
+
+    static EntityPassword getEntityWithoutLocalId(EntityPassword oryg) {
+        EntityPassword cloned = new EntityPassword();
+        cloned.setUniqueCode(oryg.getUniqueCode());
+        cloned.setWebAddress(oryg.getWebAddress());
+        cloned.setPasswordName(oryg.getPasswordName());
+        cloned.setLogin(oryg.getLogin());
+        cloned.setEncryptedPassword(oryg.getEncryptedPassword());
+        cloned.setNotes(oryg.getNotes());
+        cloned.setShortDesc(oryg.getShortDesc());
+        cloned.setRemindTimeInMilis(oryg.getRemindTimeInMilis());
+        cloned.setLastUpdate(oryg.getLastUpdate());
+        cloned.setLastRemindTime(oryg.getLastRemindTime());
+        cloned.setToSyncWithServer(oryg.isToSyncWithServer());
+        return cloned;
     }
 }

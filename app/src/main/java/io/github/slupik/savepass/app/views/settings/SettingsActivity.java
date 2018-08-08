@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -181,6 +182,7 @@ public class SettingsActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Void aVoid) {
                             syncTask=null;
+                            Toast.makeText(SettingsActivity.this, R.string.sync_success, Toast.LENGTH_SHORT).show();
                         }
                     };
             syncTask.execute();

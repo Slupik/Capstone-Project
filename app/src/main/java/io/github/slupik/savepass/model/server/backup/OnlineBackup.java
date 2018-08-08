@@ -47,8 +47,8 @@ public final class OnlineBackup {
                 List<EntityPassword> passList = response.body();
                 if(null!=passList) {
                     updateFromServer(context, passList);
-                    deleteFromServer(context, passList);
                     addFromServer(context, passList);
+                    deleteFromServer(context, passList);
                 }
             }
 

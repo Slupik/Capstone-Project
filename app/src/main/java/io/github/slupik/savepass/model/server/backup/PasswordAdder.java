@@ -28,7 +28,8 @@ class PasswordAdder extends PasswordTask {
         for(EntityPassword downloaded:downloadedList) {
             EntityPassword saved = getIdenticalPasswordEntity(savedList, downloaded);
             if(saved==null) {
-                toAdd.add(downloaded);
+                EntityPassword cloned = getEntityWithoutLocalId(downloaded);
+                toAdd.add(cloned);
             }
         }
 
