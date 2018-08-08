@@ -30,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.savepass.R;
 import io.github.slupik.savepass.app.MyApplication;
+import io.github.slupik.savepass.app.notification.base.NotifyManagerBase;
 import io.github.slupik.savepass.app.views.addpass.AddPassActivity;
 import io.github.slupik.savepass.app.views.settings.SettingsActivity;
 import io.github.slupik.savepass.app.views.viewpass.ShowPassActivity;
@@ -79,6 +80,23 @@ public class MainActivity extends AppCompatActivity
         }
         setupAdapter();
         setupIfLoggedIn();
+        checkDataFromNotify();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        clearNotify();
+    }
+
+    private void clearNotify() {
+        Intent intent = getIntent();
+        if(intent.hasExtra(NotifyManagerBase.ARG_NOTIFY_ID)) {
+            int notifyId = intent.getIntExtra(NotifyManagerBase.ARG_NOTIFY_ID, -1);
+            if(notifyId!=-1) {
+                NotifyManagerBase.cancelNotify(getApplicationContext(), notifyId);
+            }
+        }
     }
 
     private void setupIfLoggedIn() {
@@ -142,12 +160,7 @@ public class MainActivity extends AppCompatActivity
         animationController.playAnimation(new Runnable() {
             @Override
             public void run() {
-                if(getIntent().getIntExtra(ARG_SOURCE, -1)==ARG_VALUE_SOURCE_NOTIFY
-                        && !TextUtils.isEmpty(getIntent().getStringExtra(ARG_DATA))){
-                    Intent detailAct = new Intent(getApplicationContext(), AddPassActivity.class);
-                    detailAct.putExtra(ShowPassActivity.ARG_DATA, getIntent().getStringExtra(ARG_DATA));
-                    startActivity(detailAct);
-                }
+                checkDataFromNotify();
                 if(getIntent().getIntExtra(ARG_ACTION_TYPE, -1) == ARG_VALUE_ACTION_LOG_IN) {
                     Intent data = new Intent();
                     setResult(RESULT_OK, data);
@@ -158,6 +171,18 @@ public class MainActivity extends AppCompatActivity
 
 //        new OldPassNotify(this).sendNotifies(mPasswords.get(1), mPasswords.get(0), mPasswords.get(2));
 //        PasswordRepository.getInstance(getMyApplication()).generateExample(getMyApplication());
+    }
+
+    private void checkDataFromNotify() {
+        if(TextUtils.isEmpty(getMyApplication().getAppPassword())) {
+            return;
+        }
+        if(getIntent().getIntExtra(ARG_SOURCE, -1)==ARG_VALUE_SOURCE_NOTIFY
+                && !TextUtils.isEmpty(getIntent().getStringExtra(ARG_DATA))){
+            Intent detailAct = new Intent(getApplicationContext(), AddPassActivity.class);
+            detailAct.putExtra(ShowPassActivity.ARG_DATA, getIntent().getStringExtra(ARG_DATA));
+            startActivity(detailAct);
+        }
     }
 
     @Override

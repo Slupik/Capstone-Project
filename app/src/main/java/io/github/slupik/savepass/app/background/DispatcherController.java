@@ -43,6 +43,10 @@ public final class DispatcherController {
                     .setTrigger(Trigger.executionWindow(
                             RemindService.getInterval(),
                             RemindService.getInterval() + RemindService.getFlextime()))
+
+//                    //For test
+//                    .setTrigger(Trigger.executionWindow(30, 60))
+
                     .setReplaceCurrent(false)
                     .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                     .setConstraints()
@@ -69,6 +73,10 @@ public final class DispatcherController {
                     .setTrigger(Trigger.executionWindow(
                             SyncService.getInterval(context),
                             SyncService.getInterval(context) + SyncService.getFlextime(context)))
+
+                    //For test
+//                    .setTrigger(Trigger.executionWindow(30, 60))
+
                     .setReplaceCurrent(false)
                     .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                     .setConstraints(

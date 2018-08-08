@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.github.slupik.savepass.app.background.DefaultJobService;
-import io.github.slupik.savepass.app.notification.OldPassNotify;
+import io.github.slupik.savepass.app.notification.oldpass.OldPassNotifyManager;
 import io.github.slupik.savepass.data.password.PasswordRepository;
 import io.github.slupik.savepass.data.password.room.EntityPassword;
 
@@ -20,11 +20,8 @@ public class RemindService extends DefaultJobService {
 
     @Override
     protected void runAsyncTask(Context context) {
-        OldPassNotify notifier = new OldPassNotify(context);
         List<EntityPassword> list = PasswordRepository.getInstance(getApplication()).getPasswordsToRemind();
-        for(EntityPassword pass:list) {
-            notifier.sendNotifies(pass);
-        }
+        new OldPassNotifyManager(context).sendNotifies(list);
     }
 
     public static int getInterval() {
