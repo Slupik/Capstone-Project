@@ -23,7 +23,7 @@ public class SyncService extends DefaultJobService {
     }
 
     public static int getInterval(Context context) {
-        return (int) TimeUnit.DAYS.toSeconds(getSettingsTime(context));
+        return (int) TimeUnit.HOURS.toSeconds(getSettingsTime(context));
     }
 
     public static int getFlextime(Context context) {
