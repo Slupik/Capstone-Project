@@ -1,44 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--<color name="colorBackground">#050611</color>-->
-    <!--&lt;!&ndash;<color name="colorBackground">#0d0f1a</color>&ndash;&gt;-->
-    <!--<color name="colorPrimary">#161824</color>-->
-    <!--<color name="colorPrimaryDark">#0d0f1a</color>-->
-    <!--&lt;!&ndash;<color name="colorPrimaryDark">#12141e</color>&ndash;&gt;-->
-    <!--<color name="colorAccent">#ea2b81</color>-->
-    <!--<color name="colorButton">#0b78e3</color>-->
-
-
-
-    <!--&lt;!&ndash;<color name="colorPrimaryDark">#0e1d26</color>&ndash;&gt;-->
-    <!--<color name="colorPrimaryDark">#0e181e</color>-->
-    <!--<color name="colorPrimary">#111f28</color>-->
-    <!--<color name="colorAccent">#5ae6db</color>-->
-    <!--<color name="colorStress">#6c40ed</color>-->
-    <!--<color name="semiTransparent">#66000000</color>-->
-
-
-    <!--<color name="colorPrimaryDark">#1a1f30</color>-->
-    <!--<color name="colorPrimary">#2a2c3e</color>-->
-    <!--<color name="colorAccent">#5ae6db</color>-->
-    <!--<color name="colorStress">#6c40ed</color>-->
-    <!--<color name="semiTransparent">#66000000</color>-->
-
-
-    <!--<color name="colorPrimaryDark">#1e2126</color>-->
-    <!--<color name="colorPrimary">#272a30</color>-->
-    <!--<color name="colorAccent">#5ae6db</color>-->
-    <!--<color name="colorStress">#6c40ed</color>-->
-    <!--<color name="semiTransparent">#66000000</color>-->
-
-<!--nawet spoko-->
-    <!--<color name="colorPrimaryDark">#000000</color>-->
-    <!--<color name="colorPrimary">#15171c</color>-->
-    <!--<color name="colorAccent">#f11631</color>-->
-    <!--<color name="colorStress">#6c40ed</color>-->
-    <!--<color name="semiTransparent">#66000000</color>-->
-
-
     <color name="colorPrimaryDark">#1d1d23</color>
     <color name="colorPrimary">#25252d</color>
     <color name="colorBackground">#1d1d23</color>

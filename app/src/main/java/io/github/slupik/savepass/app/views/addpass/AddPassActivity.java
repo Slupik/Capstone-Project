@@ -183,7 +183,7 @@ public class AddPassActivity extends AppCompatActivity {
             e.printStackTrace();
             new AlertDialog.Builder(this)
                     .setCancelable(false)
-                    .setMessage(R.string.unknow_error_with_password)
+                    .setMessage(R.string.unknown_error_with_password)
                     .setPositiveButton(getText(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -284,7 +284,7 @@ public class AddPassActivity extends AppCompatActivity {
                         return builder;
                     }
                     default: {
-                        builder.setMessage(R.string.unknow_reminder_field_error);
+                        builder.setMessage(R.string.unknown_reminder_field_error);
                         return builder;
                     }
                 }
