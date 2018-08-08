@@ -33,17 +33,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    flavorDimensions "default"
-    productFlavors {
-        normal {
-            applicationId globalConfiguration["applicationId"]
-            dimension "default"
-        }
-        checkSpecificActivity {
-            applicationId globalConfiguration["applicationId"]
-            dimension "default"
-        }
-    }
+    //Only for tests
+//    flavorDimensions "default"
+//    productFlavors {
+//        normal {
+//            applicationId globalConfiguration["applicationId"]
+//            dimension "default"
+//        }
+//        checkSpecificActivity {
+//            applicationId globalConfiguration["applicationId"]
+//            dimension "default"
+//        }
+//    }
 }
 
 dependencies {
