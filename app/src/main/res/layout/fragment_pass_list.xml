@@ -22,6 +22,7 @@
         android:elevation="6dp"
         android:focusable="true"
         android:src="@drawable/plus_icon"
+        android:contentDescription="@string/content_desc_add_new_password"
         app:fabSize="normal"/>
 
     <android.support.v7.widget.RecyclerView
