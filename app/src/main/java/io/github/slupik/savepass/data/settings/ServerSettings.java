@@ -35,7 +35,7 @@ public class ServerSettings extends SharedPrefSettings {
     }
 
     public String getBaseUrl(){
-        String base = getSharedPreferences().getString(SERVER_BASE_URL, "localhost");
+        String base = getSharedPreferences().getString(SERVER_BASE_URL, "https://faextender.panda-lang.org");
         if(!base.startsWith("http")) {
             base = "http://"+base;
         }
